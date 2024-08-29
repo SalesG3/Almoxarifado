@@ -1,0 +1,47 @@
+section {
+    float: left;
+    width: 55%;
+}
+
+.itensTitle {
+    margin-left: 0.5rem;
+    font-family: 'Roboto';
+}
+
+.toolBar {
+    margin-left: 0.5rem;
+
+    button {
+        width: 6rem;
+        height: 4rem;
+        margin-right: 0.2rem;
+
+        cursor: pointer;
+    }
+}
+
+.detailMode {
+    float: right;
+}
+
+.bodyMain {
+    margin-left: 0.5rem;
+    padding-top: 0.5rem;
+
+    input {
+        width: 71.3%;
+    }
+
+    button {
+        width: 6rem;
+        margin-left: 0.2rem;
+    }
+}
+
+.dataTable {
+    width: 100%;
+    margin-top: 0.5rem;
+
+    font-family: 'Calibri';
+    text-align: left;
+}
