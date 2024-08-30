@@ -10,7 +10,7 @@
         </div>
 
         <div class="CRUD">
-            <button>Cadastrar</button>
+            <button (click)="cadastrar()">Cadastrar</button>
             <button>Alterar</button>
             <button>Consultar</button>
             <button>Apagar</button>
@@ -34,23 +34,23 @@
                 </tr>
             </thead>
 
-            <tbody id="dataTable">
-                <tr>
-                    <td>teste</td>
-                    <td>teste</td>
-                    <td>teste</td>
-                </tr>
-                <tr>
-                    <td>teste</td>
-                    <td>teste</td>
-                    <td>teste</td>
-                </tr>
-                <tr>
-                    <td>teste</td>
-                    <td>teste</td>
-                    <td>teste</td>
-                </tr>
-            </tbody>
+            <tbody id="dataTable"></tbody>
         </table>
+    </div>
+
+    <div class="detalhesItem">
+
+        <label for="codigo">Código:</label>
+        <input id="codigo" type="text" />
+
+        <label for="medida">Medida:</label>
+        <input id="medida" type="text" /><br><br>
+
+        <label for="nome">Nome:</label>
+        <input id="nome" type="text" /><br><br>
+
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao"></textarea>
+
     </div>
 </section>
