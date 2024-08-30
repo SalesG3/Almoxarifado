@@ -44,4 +44,29 @@ section {
 
     font-family: 'Calibri';
     text-align: left;
+
+    border-collapse: collapse;
+    
+
+    th, td{
+        
+        padding-left: 0.5rem;
+        border-right: 1px solid black;
+    }
+
+    th:last-child, td:last-child {
+        border-right: 0px solid;
+    }
+
+    .itemCode {
+        width: 15%;
+    }
+
+    .itemName {
+        width: 60%;
+    }
+
+    .itemMeasure {
+        width: 15%;
+    }
 }
