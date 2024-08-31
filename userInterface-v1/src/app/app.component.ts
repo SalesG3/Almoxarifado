@@ -13,6 +13,5 @@ export class AppComponent implements OnInit {
   title = 'userInterface-v1';
 
   ngOnInit(): void {
-    
   }
 }

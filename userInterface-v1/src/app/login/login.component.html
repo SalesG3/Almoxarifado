@@ -24,12 +24,12 @@
             <div class="loginbox">
                 <img src="../../assets/login.svg" alt="img-padlock">
                 <label>Usuário:</label>
-                <input type="text">
+                <input id="usuario" type="text">
                 <br><br>
                 <label>Senha:</label>
-                <input type="password">
+                <input id="senha" type="password">
                 <br><br>
-                <button><img src="../../assets/check.svg" alt="img-check">Login</button>
+                <button (click)="login()"><img src="../../assets/check.svg" alt="img-check">Login</button>
             </div>
         </div>
     </main>
