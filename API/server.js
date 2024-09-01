@@ -15,7 +15,5 @@ app.get('/', async function(req, res) {
     
     let [query] = await sqlcon.execute('SELECT * FROM usuarios');
 
-    console.log(query)
-
     res.send(query)
 })
