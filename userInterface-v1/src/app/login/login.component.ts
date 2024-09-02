@@ -32,8 +32,15 @@ export class LoginComponent {
       })
     })
     .then(res => res.json()).then(data => {
-      this.service.sessao = data.sucess
-      this.router.navigate(['menu'])
+
+      if(data.falied != undefined){
+        window.alert(data.falied)
+      }
+      else{
+        this.service.sessao = data.id
+        this.router.navigate(['menu'])
+      }
+      
     })
   }
 }

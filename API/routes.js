@@ -7,8 +7,16 @@ const DBcon = server.con;
 app.post('/', async function (req, res) {
     
     let [query] = await DBcon.promise().query(`CALL validar_usuario('${req.body.usuario}','${req.body.senha}')`)
-
-    res.send({
-        sucess: query[0][0].id
-    })
+    
+    if(query[0][0] == undefined){
+        res.send({
+            falied: "Email/Senha não compatíveis!"
+        })
+    }
+    else{
+        res.send({
+            token: "acess2255",
+            id: query[0][0].id,
+        })
+    }
 })
