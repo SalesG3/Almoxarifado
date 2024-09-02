@@ -1,1 +1,42 @@
-<p>menu works!</p>
+<section>
+    <header>
+        <div class="titulo">
+            <img src="../../assets/Logo.png" alt="img-logo">
+            <h1>SISTEMA DE COMPRAS E ALMOXARIFADO</h1>
+        </div>
+        
+
+        <div class="entidade">
+            <button><img src="../../assets/power.svg" alt="img-logout"><br>Sair</button>
+            
+            <h3>{{cliente.entidade}}</h3>
+            <span>Usuário: {{cliente.usuario}} | Versão: {{cliente.versao}}</span>
+        </div>
+    </header>
+
+    <main>
+        <nav class="navegador">
+            <button><img src="../../assets/inicio.svg" alt="img-inicio">Início</button>
+            <input type="text" placeholder="Pesquisar ...">
+            <button #btn01 value="cadastros" (click)="listDown(btn01.value)">
+                <img src="../../assets/cadastros.svg" alt="img-cadastros"> Cadastros</button>
+                <div id="cadastros" class="listDown">
+                    <button #btn11 value="produtos" (click)="openScreen(btn11.value)">Produtos</button>
+                    <button>Contratos</button>
+                    <button>Fornecedores</button>
+                    <button>Secretarias</button>
+                </div>
+            
+            <button #btn02 value="movimentacoes" (click)="listDown(btn02.value)">
+                <img src="../../assets/movimentacao.svg" alt="img-movimentacao">Movimentações</button>
+                <div id="movimentacoes" class="listDown">
+                    <button>Pedidos</button>
+                    <button>Consumo</button>
+                    <button>Conferência</button>
+                </div>
+        </nav>
+
+        <router-outlet></router-outlet>
+        
+    </main>
+</section>

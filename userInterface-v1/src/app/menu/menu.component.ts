@@ -1,26 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { SessaoService } from '../sessao.service';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { ProdutosComponent } from '../produtos/produtos.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet, ProdutosComponent],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent implements OnInit{
+export class MenuComponent {
 
-
-  constructor(public service: SessaoService, public router: Router){
-    
-    console.log(service.autenticacao)
-    // console {5} como desejado
+  cliente = {
+    entidade: "Bom Jesus da Lapa",
+    usuario: "undefined",
+    versao: "1.0.00"
   }
 
-  ngOnInit(): void {
+  constructor(private service: SessaoService, public router: Router){
     if(this.service.autenticacao == ""){
       this.router.navigate([""])
     }
+  }
+
+  listDown(btn : string){
+    document.querySelector(`#${btn}`)?.classList.toggle('show')
+  }
+
+  openScreen(btn: string){
+    this.router.navigate([`/menu/${btn}`])
   }
 }

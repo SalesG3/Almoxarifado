@@ -8,6 +8,7 @@ export class SessaoService {
   autenticacao : string;
 
   constructor() {
-    this.autenticacao = "";
+    // PARA ESTILIZAR O COMPONENT 'MENU'
+    this.autenticacao = "5";
    }
 }
