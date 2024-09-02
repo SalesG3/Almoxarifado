@@ -18,10 +18,12 @@ export class MenuComponent {
     versao: "1.0.00"
   }
 
-  constructor(private service: SessaoService, public router: Router){
+  constructor(private service: SessaoService, private router: Router){
+
     if(this.service.autenticacao == ""){
       this.router.navigate([""])
     }
+
   }
 
   listDown(btn : string){
@@ -31,4 +33,11 @@ export class MenuComponent {
   openScreen(btn: string){
     this.router.navigate([`/menu/${btn}`])
   }
+
+  logOut(){
+    this.service.autenticacao = "";
+    this.router.navigate([""]);
+  }
+
+  
 }
