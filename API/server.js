@@ -1,19 +1,36 @@
+// Cria servidor Express e executa na porta 8000
+// Utiliza CORS para permitir requisições
+
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors')
 
 const app = express();
-app.use(cors({origin:'http://localhost:4200'}))
+app.use(cors({
+    origin:'http://localhost:4200'
+}));
+app.use(express.json())
 
 app.listen(8000, () => {
-    console.log('Servidor Express Live!! http://localhost:8000/')
-})
+    console.log('Servidor Express Live !! http://localhost:8000/')
+});
 
-const mysql = require('mysql2/promise');
-const sqlcon = mysql.createPool('mysql://root:otJKDeDzWueXZjjjxsKNYaEcnyUCcFvE@junction.proxy.rlwy.net:58360/railway');
+// Cria e estabelece conexão com Banco de Dados
+// Banco de Dados online via RailWay
 
-app.get('/', async function(req, res) {
-    
-    let [query] = await sqlcon.execute('SELECT * FROM usuarios');
+const mysql = require('mysql2');
 
-    res.send(query)
-})
+const con = mysql.createConnection(
+    "mysql://root:otJKDeDzWueXZjjjxsKNYaEcnyUCcFvE@junction.proxy.rlwy.net:58360/railway"
+)
+
+con.connect(function(err){
+    if(err) throw err;
+    console.log("Banco de Dados conectado!")
+});
+
+// Exporta módulos
+
+module.exports = {
+    app: app,
+    con: con,
+}

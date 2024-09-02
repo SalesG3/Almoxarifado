@@ -5,10 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class SessaoService {
 
-  autenticacao : string;
+  sessao : string;
 
   constructor() {
-    // PARA ESTILIZAR O COMPONENT 'MENU'
-    this.autenticacao = "";
+    this.sessao = "";
    }
 }

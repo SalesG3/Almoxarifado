@@ -20,7 +20,7 @@ export class MenuComponent {
 
   constructor(private service: SessaoService, private router: Router){
 
-    if(this.service.autenticacao == ""){
+    if(this.service.sessao == ""){
       this.router.navigate([""])
     }
 
@@ -35,7 +35,7 @@ export class MenuComponent {
   }
 
   logOut(){
-    this.service.autenticacao = "";
+    this.service.sessao = "";
     this.router.navigate([""]);
   }
 

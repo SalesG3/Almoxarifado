@@ -10,6 +10,7 @@ import { SessaoService } from '../sessao.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
   cliente = {
     entidade: "Bom Jesus da Lapa",
     usuario: "undefined",
@@ -19,19 +20,20 @@ export class LoginComponent {
   constructor(private router: Router,public service: SessaoService){}
   
   async login(){
-    let req = await fetch(`http://localhost:8000/`)
-    .then(response => response.json()).then(data => {
-      
-      let usuario = (document.querySelector('#usuario') as HTMLInputElement).value;
-      let senha = (document.querySelector('#senha') as HTMLInputElement).value;
-      
-      for(let i in data){
-        if(data[i].usuario == usuario && data[i].senha == senha){
-          this.service.autenticacao = data[i].id;
-          
-          this.router.navigate(['/menu'])
-        }
-      }
+    
+    let req = await fetch('http://localhost:8000/',{
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        usuario: (document.getElementById('usuario') as HTMLInputElement).value,
+        senha: (document.getElementById('senha') as HTMLInputElement).value,
+      })
+    })
+    .then(res => res.json()).then(data => {
+      this.service.sessao = data.sucess
+      this.router.navigate(['menu'])
     })
   }
 }
