@@ -1,0 +1,59 @@
+section {
+    margin: 3rem;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    background-color: lightgray;
+    font: bold 1rem 'Roboto';
+    padding: 0.25rem; padding-left: 1rem;
+}
+
+.dataBox {
+    padding-top: 1rem;
+    box-shadow: inset 0px 5px 5px -3px rgba(0, 0, 0, 0.5);
+    background-color: #DEE7E7;
+
+    label {
+        display: inline-flex;
+        width: 10%;
+        height: 1.4rem;
+
+        vertical-align: middle;
+        margin-left: 1rem;
+        padding-left: 1rem;
+
+        font: bold 1rem 'Calibri';
+        text-align: left;
+        background-color: #AEBEC7;
+        
+    }
+
+    input, textarea {
+        display: inline-flex;
+        height: 1.2rem;
+
+        vertical-align: middle;
+        outline: none;
+    }
+
+    #codigo {width: 30%;}
+    #medida {width: 30%;}
+    #produto {width: 75%;}
+    #descricao {width: 87.5%; margin-left: 1rem; resize: none; height: 2rem;}
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: 1rem;
+    margin-right: 3.5rem;
+    padding-bottom: 1rem;
+
+    button {
+        width: 7rem;
+        margin-right: 0.5rem;
+        font:bold 1rem 'Calibri';
+        cursor: pointer;
+    }
+}

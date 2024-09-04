@@ -20,3 +20,10 @@ app.post('/', async function (req, res) {
         })
     }
 })
+
+// Novo registro em Produtos
+app.post('/produtos', async function (req, res) {
+    res.send({
+        test: "recebido"
+    })
+})
