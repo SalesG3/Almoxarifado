@@ -2,13 +2,24 @@
     <h1 class="titulo"> GERENCIADOR DE PRODUTOS:</h1>
 
     <nav class="ferramentas">
-        <button><img src="../../assets/cadastrar.svg" alt="img-cadastrar"> Cadastrar</button>
-        <button><img src="../../assets/alterar.svg" alt="img-alterar"> Alterar</button>
-        <button><img src="../../assets/consultar.svg" alt="img-consultar"> Consultar</button>
-        <button><img src="../../assets/apagar.svg" alt="img-apagar"> Excluir</button>
+        <button #btn01 value="cadastrar" (click)="openScreen(btn01.value)">
+            <img src="../../assets/cadastrar.svg" alt="img-cadastrar"> Cadastrar
+        </button>
+
+        <button>
+            <img src="../../assets/alterar.svg" alt="img-alterar"> Alterar
+        </button>
+
+        <button>
+            <img src="../../assets/consultar.svg" alt="img-consultar"> Consultar
+        </button>
+        
+        <button>
+            <img src="../../assets/apagar.svg" alt="img-apagar"> Excluir
+        </button>
     </nav>
 
-    <table id="tabela" class="tabela">
+    <table>
         <thead>
             <tr>
                 <th class="codigo">Código:</th>
@@ -19,4 +30,7 @@
 
         <tbody [innerHTML]="inner" id="dataTable"></tbody>
     </table>
+
+    <router-outlet></router-outlet>
+    
 </section>

@@ -36,8 +36,8 @@ section {
     }
 }
 
-.tabela {
-    margin-top: 1rem;
+table {
+    margin-top: 1.5rem;
     margin-left: 2rem;
 
     width: 92.5%;
@@ -45,13 +45,23 @@ section {
 
     font-size: 1rem;
     font-family: sans-serif;
-}
 
-#dataTable {
-    font-family: 'Gill Sans', 'Gill Sans MT';
-    padding-left: 0.5rem;
+    background-color: lightgray;
+    border-collapse: collapse;
+
+    th {
+        height: 20px;
+        border: 1px solid black;
+        padding-left: 0.3rem;
+    }
 }
 
 :host ::ng-deep #dataTable td {
-    color: red;
+    height: 20px;
+    padding-left: 0.3rem;
+    border: 1px solid black;
+}
+
+:host ::ng-deep #dataTable tr:nth-child(odd) {
+    background-color: white;
 }
