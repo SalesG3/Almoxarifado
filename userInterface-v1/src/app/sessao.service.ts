@@ -8,6 +8,6 @@ export class SessaoService {
   sessao : string;
 
   constructor() {
-    this.sessao = "";
+    this.sessao = "5";
    }
 }

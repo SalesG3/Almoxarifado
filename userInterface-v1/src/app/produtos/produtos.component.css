@@ -46,3 +46,12 @@ section {
     font-size: 1rem;
     font-family: sans-serif;
 }
+
+#dataTable {
+    font-family: 'Gill Sans', 'Gill Sans MT';
+    padding-left: 0.5rem;
+}
+
+:host ::ng-deep #dataTable td {
+    color: red;
+}

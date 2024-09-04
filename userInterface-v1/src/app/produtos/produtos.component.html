@@ -8,7 +8,7 @@
         <button><img src="../../assets/apagar.svg" alt="img-apagar"> Excluir</button>
     </nav>
 
-    <table class="tabela">
+    <table id="tabela" class="tabela">
         <thead>
             <tr>
                 <th class="codigo">Código:</th>
@@ -17,12 +17,6 @@
             </tr>
         </thead>
 
-        <tbody>
-            <tr>
-                <td>teste</td>
-                <td>teste</td>
-                <td>teste</td>
-            </tr>
-        </tbody>
+        <tbody [innerHTML]="inner" id="dataTable"></tbody>
     </table>
 </section>
