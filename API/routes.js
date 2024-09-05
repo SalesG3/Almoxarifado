@@ -23,7 +23,23 @@ app.post('/', async function (req, res) {
 
 // Novo registro em Produtos
 app.post('/produtos', async function (req, res) {
+
+    let [consulta] = await DBcon.promise().query('SELECT codigo FROM produtos')
+
+    for(let i in consulta){
+        if(consulta[i].codigo == req.body.codigo){
+
+            res.send({
+                falied: "Código já existente no Banco de Dados!"
+            })
+            return
+        }
+    };
+
+    let [query] = await DBcon.promise().query(`CALL novo_produto
+        ('${req.body.codigo}', '${req.body.produto}', '${req.body.medida}', '${req.body.descricao}')`);
+
     res.send({
-        test: "recebido"
+        sucess: query.insertId
     })
 })

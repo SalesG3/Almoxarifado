@@ -47,4 +47,16 @@ export class ProdutosComponent implements OnInit {
 
     this.router.navigate(['/menu/produtos/id'])
   }
+
+  closeScreen(){
+
+    let nav = (document.querySelector('.ferramentas') as HTMLElement).children;
+
+    for(let i = 0; i < 4 && nav[i] as HTMLButtonElement; i++){
+      nav[i].removeAttribute('disabled');
+      nav[i].removeAttribute('style');
+    }
+
+    document.querySelector('table')?.toggleAttribute('hidden')
+  }
 }
