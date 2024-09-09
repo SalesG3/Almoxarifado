@@ -1,0 +1,34 @@
+<section>
+    <header>
+        <div class="titleBox">
+            <h1>Sistema de Compras e Almoxarifado</h1>
+        </div>
+        <div class="infoBox">
+            <button>Sair</button>
+            <span class="client">{{userSession.client}}</span><br>
+            <span>Usuário: {{userSession.user}} | Versão: {{userSession.version}}</span>
+        </div>
+    </header>
+    <nav class="navegation">
+        <button>Pesquisa</button>
+
+        <button #nav01 value="cadastro" (click)="listDown(nav01)">Cadastro</button>
+        <div class="listDown" id="cadastro">
+            <a href="#" [routerLink]="'/index/products'">Produtos</a>
+            <a href="#">Fornecedores</a>
+            <a href="#">Secretarias</a>
+            <a href="#">Contratos</a>
+        </div>
+
+        <button #nav02 value="movimentacao" (click)="listDown(nav02)">Movimentação</button>
+        <div class="listDown" id="movimentacao">
+            <a href="#">Pedidos</a>
+            <a href="#">Entradas</a>
+            <a href="#">Saídas</a>
+        </div>
+        <button>Relatórios</button>
+    </nav>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</section>

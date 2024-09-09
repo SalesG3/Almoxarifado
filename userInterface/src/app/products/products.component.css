@@ -1,0 +1,10 @@
+section {
+    margin-top: 10rem;
+    margin-left: 10rem;
+}
+
+header {
+    font: bold 1rem 'Calibri';
+    background-color: lightgray;
+    padding: 0.25rem 0.75rem;
+}

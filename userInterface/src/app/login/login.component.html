@@ -1,0 +1,39 @@
+<section>
+    <header>
+        <div class="titleBox">
+            <h1>Sistema de Compras e Almoxarifado</h1>
+        </div>
+        <div class="infoBox">
+            <button>Sair</button>
+            <span class="client">{{userSession.client}}</span><br>
+            <span>Usuário: {{userSession.user}} | Versão: {{userSession.version}}</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="loginBox">
+            <div class="loginHeader">
+                <span>Login:</span>
+            </div>
+            <div class="loginInfo">
+                <img src="../../assets/login.svg" alt="img-login.svg">
+                <label for="userIn">Usuário:</label>
+                <input type="text" id="userIn">
+                <br>
+                <label for="passwordIn">Senha:</label>
+                <input type="password" id="passwordIn">
+                <br>
+                <label for="yearIn">Ano:</label>
+                <select name="Teste" id="yearIn">
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+                <br>
+                <p class="message">{{message}}</p>
+                <button (click)="userLogin()">Logar</button>
+
+            </div>
+        </div>
+    </main>
+
+</section>
