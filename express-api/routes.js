@@ -4,7 +4,9 @@ const app = server.app;
 const con = server.con;
 
 // User Login request
-app.post('/', async function(req, res) {
+app.post('/login', async function(req, res) {
+
+    console.log(req.body.passwordIn)
     
     let[query] = await con.promise().query(`CALL user_validate('${req.body.userIn}', '${req.body.passwordIn}')`);
 

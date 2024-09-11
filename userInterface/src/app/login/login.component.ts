@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../services/session.service';
 import { Router } from '@angular/router';
-
+import { Md5 } from 'ts-md5/dist/cjs/md5';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent {
   userSession : SessionService;
 
   constructor (private session : SessionService, private router : Router) {
-    
+
     this.userSession = {
       client: session.client,
       user: session.user,
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   async userLogin(){
 
-    let req = await fetch('http://localhost:8000/', {
+    let req = await fetch('http://localhost:8000/login/', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
         userIn : (document.querySelector('#userIn') as HTMLInputElement).value,
-        passwordIn : (document.querySelector('#passwordIn') as HTMLInputElement).value,
+        passwordIn : Md5.hashStr((document.querySelector('#passwordIn') as HTMLInputElement).value),
       })
     }).then(res => res.json()).then(data => {
 
@@ -46,3 +46,4 @@ export class LoginComponent {
     })
   }
 }
+
