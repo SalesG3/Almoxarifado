@@ -20,3 +20,11 @@ app.post('/login', async function(req, res) {
         })
     }
 })
+
+// Lookup Categorias request
+app.get('/categorias', async function (req, res) {
+
+    let [query] = await con.promise().query('SELECT * FROM categorias');
+
+    res.send(query);
+})

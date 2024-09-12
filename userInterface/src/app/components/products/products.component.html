@@ -3,7 +3,7 @@
         <span>Produtos:</span>
     </header>
 
-    <main>
+    <main class="grid">
         <nav>
             <button>Incluir</button>
             <button>Alterar</button>
@@ -26,6 +26,27 @@
 
             <tbody></tbody>
         </table>
+    </main>
+
+    <main class="">
+
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo">
+
+        <label for="nome">Produto:</label>
+        <input type="text" id="nome">
+
+        <label for="Marca">Marca:</label>
+        <input type="text" id="marca">
+
+        <label for="medida">Unidade de Medida:</label>
+        <input type="text" id="medida">
+
+        <label for="categoria">Categoria:</label>
+        <select (ngInit)="lookup()" id="categoria">
+            <option hidden></option>
+        </select>
+
     </main>
 
 </section>
