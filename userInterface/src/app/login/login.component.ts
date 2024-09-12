@@ -36,7 +36,7 @@ export class LoginComponent {
     }).then(res => res.json()).then(data => {
 
       if(data.falied != undefined){
-        this.message = "Usuário e Senha incompatíveis!"
+        this.message = "Usuário e Senha incompatíveis!";
 
       } else if (data.sucess != undefined){
         this.message = "";
