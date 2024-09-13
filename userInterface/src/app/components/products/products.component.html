@@ -21,6 +21,7 @@
             <span>|</span>
             <button>Filtrar</button>
         </div>
+
         <table>
             <thead>
                 <tr>
@@ -30,13 +31,7 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                    <td>teste</td>
-                    <td>teste</td>
-                    <td>teste</td>
-                </tr>
-            </tbody>
+            <tbody [innerHTML]="inner" id="bodyTable"></tbody>
         </table>
     </main>
 

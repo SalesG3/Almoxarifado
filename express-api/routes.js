@@ -28,3 +28,11 @@ app.get('/categorias', async function (req, res) {
 
     res.send(query);
 })
+
+// dataTable :: Products
+app.get('/produtos', async function (req, res) {
+    
+    let [query] = await con.promise().query('SELECT id, codigo, nome, medida FROM produtos');
+
+    res.send(query)
+})
