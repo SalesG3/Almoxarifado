@@ -19,7 +19,7 @@ app.listen(8000, () => {
 
 const mysql = require('mysql2');
 
-const con = mysql.createConnection('mysql://root:otJKDeDzWueXZjjjxsKNYaEcnyUCcFvE@junction.proxy.rlwy.net:58360/railway');
+const con = mysql.createConnection('mysql://root:otJKDeDzWueXZjjjxsKNYaEcnyUCcFvE@junction.proxy.rlwy.net:58360/DBmain');
 
 con.connect(function(err){
     if(err) throw err;

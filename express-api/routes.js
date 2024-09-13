@@ -4,17 +4,27 @@ const app = server.app;
 const con = server.con;
 
 // User Login request
-app.post('/', async function(req, res) {
+app.post('/login', async function(req, res) {
     
     let[query] = await con.promise().query(`CALL user_validate('${req.body.userIn}', '${req.body.passwordIn}')`);
 
     if(query[0][0] == undefined){
         res.send({
             falied:'userIn & passwordIn dont match'
+
         })
     } else {
         res.send({
             sucess: query[0]
+            
         })
     }
+})
+
+// Lookup Categorias request
+app.get('/categorias', async function (req, res) {
+
+    let [query] = await con.promise().query('SELECT * FROM categorias');
+
+    res.send(query);
 })

@@ -3,6 +3,7 @@
         <span>Produtos:</span>
     </header>
 
+<<<<<<< HEAD:userInterface/src/app/products/products.component.html
     <main>
         <nav class="toolbar">
             <button><img src="../../assets/add.svg" alt="img-add.svg">
@@ -13,6 +14,14 @@
                 Excluir</button>
             <button><img src="../../assets/consult.svg" alt="img-consult.svg">
                 Consultar</button>
+=======
+    <main class="grid">
+        <nav>
+            <button>Incluir</button>
+            <button>Alterar</button>
+            <button>Excluir</button>
+            <button>Consultar</button>
+>>>>>>> 55469cfb0adae198e1ad70a0f61a1c5f178c2d60:userInterface/src/app/components/products/products.component.html
         </nav>
         <div>
             <img src="../../assets/lupa.svg" alt="img-search.svg">
@@ -31,6 +40,27 @@
 
             <tbody></tbody>
         </table>
+    </main>
+
+    <main class="">
+
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo">
+
+        <label for="nome">Produto:</label>
+        <input type="text" id="nome">
+
+        <label for="Marca">Marca:</label>
+        <input type="text" id="marca">
+
+        <label for="medida">Unidade de Medida:</label>
+        <input type="text" id="medida">
+
+        <label for="categoria">Categoria:</label>
+        <select (ngInit)="lookup()" id="categoria">
+            <option hidden></option>
+        </select>
+
     </main>
 
 </section>
