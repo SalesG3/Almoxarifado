@@ -40,7 +40,7 @@ header {
 .navegation {
     margin-top: 0.5rem;
     height: 1.5rem;
-    background: linear-gradient(to bottom, white, gray);
+    background: linear-gradient(to top, lightgray, white);
 
     & button {
         width: 9rem;
@@ -52,6 +52,7 @@ header {
     & button:hover {
         background-color: rgba(0, 0, 0, 0.2);
         cursor: pointer;
+        border-radius: 5px 5px 0px 0px;
     }
 }
 

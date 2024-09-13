@@ -3,7 +3,6 @@
         <span>Produtos:</span>
     </header>
 
-<<<<<<< HEAD:userInterface/src/app/products/products.component.html
     <main>
         <nav class="toolbar">
             <button><img src="../../assets/add.svg" alt="img-add.svg">
@@ -14,35 +13,34 @@
                 Excluir</button>
             <button><img src="../../assets/consult.svg" alt="img-consult.svg">
                 Consultar</button>
-=======
-    <main class="grid">
-        <nav>
-            <button>Incluir</button>
-            <button>Alterar</button>
-            <button>Excluir</button>
-            <button>Consultar</button>
->>>>>>> 55469cfb0adae198e1ad70a0f61a1c5f178c2d60:userInterface/src/app/components/products/products.component.html
         </nav>
-        <div>
+        <div class="search">
             <img src="../../assets/lupa.svg" alt="img-search.svg">
             <input id="search" type="text">
             <button>Procurar</button>
+            <span>|</span>
             <button>Filtrar</button>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Código:</th>
-                    <th>Produto:</th>
-                    <th>Marca:</th>
+                    <th class="codigo">Código:</th>
+                    <th class="produto">Produto:</th>
+                    <th class="medida">Medida:</th>
                 </tr>
             </thead>
 
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                    <td>teste</td>
+                    <td>teste</td>
+                    <td>teste</td>
+                </tr>
+            </tbody>
         </table>
     </main>
 
-    <main class="">
+    <main class="" style="display: none;">
 
         <label for="codigo">Código:</label>
         <input type="text" id="codigo">
