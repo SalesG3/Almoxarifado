@@ -3,32 +3,44 @@
         <span>Produtos:</span>
     </header>
 
-    <main class="grid">
-        <nav>
-            <button>Incluir</button>
-            <button>Alterar</button>
-            <button>Excluir</button>
-            <button>Consultar</button>
+    <main>
+        <nav class="toolbar">
+            <button><img src="../../assets/add.svg" alt="img-add.svg">
+                Incluir</button>
+            <button><img src="../../assets/edit.svg" alt="img-edit.svg">
+                Alterar</button>
+            <button><img src="../../assets/delete.svg" alt="img-delete.svg">
+                Excluir</button>
+            <button><img src="../../assets/consult.svg" alt="img-consult.svg">
+                Consultar</button>
         </nav>
-        <div>
-            <input type="text">
+        <div class="search">
+            <img src="../../assets/lupa.svg" alt="img-search.svg">
+            <input id="search" type="text">
             <button>Procurar</button>
+            <span>|</span>
             <button>Filtrar</button>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Código:</th>
-                    <th>Produto:</th>
-                    <th>Marca:</th>
+                    <th class="codigo">Código:</th>
+                    <th class="produto">Produto:</th>
+                    <th class="medida">Medida:</th>
                 </tr>
             </thead>
 
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                    <td>teste</td>
+                    <td>teste</td>
+                    <td>teste</td>
+                </tr>
+            </tbody>
         </table>
     </main>
 
-    <main class="details">
+    <main class="details" style="display: none;">
 
         <label for="codigo">Código:</label>
         <input type="text" id="codigo">

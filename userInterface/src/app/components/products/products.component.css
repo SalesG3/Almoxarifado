@@ -1,7 +1,7 @@
 section {
-    margin-top: 10rem;
-    margin-left: 10rem;
-    width: 35rem;
+    margin-top: 5rem;
+    margin-left: 25rem;
+    width: 30rem;
 }
 
 header {
@@ -13,10 +13,79 @@ header {
 main {
     background-color: #DDE6EA;
 }
-
 .grid {
     display: none;
     background-color: #DDE6EA;
+    height: 20rem;
+    box-shadow: inset 0px 6px 3px -3px rgba(0, 0, 0, 0.5);
+}
+
+.toolbar {
+
+    & button{
+        margin: 0.5rem;
+        width: 4.5rem;
+        font: normal 0.8rem 'Calibri';
+        height: 3rem;
+        background: linear-gradient(to top, lightgray, white);
+        border-radius: 10px;
+        box-shadow: 2px 2px 3px -2px ;
+        border: 1px solid gray;
+    }
+
+    & button:hover {
+        cursor: pointer;
+        filter: brightness(0.9);
+    }
+}
+
+.search {
+    margin: 0.25rem;
+    display: flex;
+
+    & input {
+        outline: none;
+        width: 16rem;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding-left: .5rem;
+    }
+
+    & input:focus {
+        border: 1px solid cornflowerblue;
+
+    }
+
+    & button {
+        width: 5rem;
+        margin: 0 .25rem 0 .25rem;
+        background: linear-gradient(to top, lightgray, white);
+        border-radius: 5px;
+        border: 1px solid gray;
+    }
+
+    & button:hover {
+        cursor: pointer;
+        filter: brightness(0.9);
+    }
+}
+
+table {
+    width: 100%;
+    margin-top: 0.5rem;
+    border-collapse: collapse;
+
+    & td, th {
+        border: 1px solid gray;
+        text-align: left;
+        padding-left: 0.25rem;
+
+        font-family: 'Calibri';
+    }
+
+    & .codigo { width: 5rem; }
+    & .produto { width: 22.5rem; }
+    & .medida { width: 7.5rem; }
 }
 
 .details {
