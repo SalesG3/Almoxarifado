@@ -1,11 +1,12 @@
 <section>
     <header>
-        <span>Produtos:</span>
-    </header>
 
-    <main>
+        <div class="title-component">
+            <span>Produtos:</span>
+        </div>
+
         <nav class="toolbar">
-            <button><img src="../../assets/add.svg" alt="img-add.svg">
+            <button (click)="openDetail()"><img src="../../assets/add.svg" alt="img-add.svg">
                 Incluir</button>
             <button><img src="../../assets/edit.svg" alt="img-edit.svg">
                 Alterar</button>
@@ -14,9 +15,13 @@
             <button><img src="../../assets/consult.svg" alt="img-consult.svg">
                 Consultar</button>
         </nav>
+    </header>
+
+    <main class="grid-table">
+
         <div class="search">
             <img src="../../assets/lupa.svg" alt="img-search.svg">
-            <input id="search" type="text">
+            <input type="text" id="search">
             <button>Procurar</button>
             <span>|</span>
             <button>Filtrar</button>
@@ -35,25 +40,25 @@
         </table>
     </main>
 
-    <main class="details" style="display: none;">
+    <main class="detail-record"  style="display: none;">
 
-        <label for="codigo">Código:</label>
-        <input type="text" id="codigo">
+        <div class="data-record">
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo">
 
-        <label for="nome">Produto:</label>
-        <input type="text" id="nome">
-        <br>
-        <label for="Marca">Marca:</label>
-        <input type="text" id="marca">
+            <label for="nome">Produto:</label>
+            <input type="text" id="nome">
+            <br>
+            <label for="Marca">Marca:</label>
+            <input type="text" id="marca">
 
-        <label for="medida">Medida:</label>
-        <input type="text" id="medida">
-
-        <label for="categorias">Categoria:</label>
-        <select #sel01 (focus)="lookup(sel01.id)" name="categorias" id="categorias">
-            <option hidden></option>
-        </select>
-
+            <label for="medida">Medida:</label>
+            <input type="text" id="medida">
+            <br>
+            <label for="categorias">Categoria:</label>
+            <select #sel01 (focus)="lookup(sel01.id)" id="categorias">
+                <option hidden></option>
+            </select>
+        </div>
     </main>
-
 </section>

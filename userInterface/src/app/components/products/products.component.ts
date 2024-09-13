@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,8 +15,13 @@ export class ProductsComponent {
   
   constructor (private sanitizer : DomSanitizer ) {
     if(typeof document != "undefined"){
-      this.reqRecords()
+      this.reqRecords();
     }
+  }
+
+  openDetail(){
+    (document.querySelector('.grid-table') as HTMLElement).setAttribute('style','display: none');
+    (document.querySelector('.detail-record') as HTMLElement).removeAttribute('style')
   }
 
   async reqRecords () {
@@ -34,6 +40,15 @@ export class ProductsComponent {
       }
 
       this.inner = this.sanitizer.bypassSecurityTrustHtml(text);
+      
+      (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
+
+        if((document.querySelector('.focus') as HTMLTableElement)){
+          (document.querySelector('.focus') as HTMLTableElement).classList.remove('focus')
+        }
+
+        ((event.target as HTMLTableCellElement).parentNode as HTMLTableRowElement).classList.add('focus');
+      })
     })
   }
 
