@@ -11,6 +11,38 @@ header {
 }
 
 main {
-
     background-color: #DDE6EA;
 }
+
+.grid {
+    display: none;
+    background-color: #DDE6EA;
+}
+
+.details {
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+
+    & label {
+        display: inline-block;
+        margin: 0.5rem 0rem 0rem 0.5rem;
+        font: normal 1rem 'Calibri';
+        padding-left: 0.5rem;
+        width: 5rem;
+        background-color: #B7C7D0;
+    }
+
+    & input {
+        display: inline-block;
+        outline: none;
+        border: 0px solid;
+        font: normal 1rem 'Calibri';
+        margin: 0.5rem 0rem 0rem 0rem;
+
+    }
+
+
+    & #codigo { width: 5rem; }
+    & #nome { width: 15rem; }
+}
+

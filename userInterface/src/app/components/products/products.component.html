@@ -28,22 +28,22 @@
         </table>
     </main>
 
-    <main class="">
+    <main class="details">
 
         <label for="codigo">Código:</label>
         <input type="text" id="codigo">
 
         <label for="nome">Produto:</label>
         <input type="text" id="nome">
-
+        <br>
         <label for="Marca">Marca:</label>
         <input type="text" id="marca">
 
-        <label for="medida">Unidade de Medida:</label>
+        <label for="medida">Medida:</label>
         <input type="text" id="medida">
 
-        <label for="categoria">Categoria:</label>
-        <select (ngInit)="lookup()" id="categoria">
+        <label for="categorias">Categoria:</label>
+        <select #sel01 (focus)="lookup(sel01.id)" name="categorias" id="categorias">
             <option hidden></option>
         </select>
 
