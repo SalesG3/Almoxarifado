@@ -102,6 +102,7 @@ table {
     padding-left: 0.5rem;
     font: normal 1rem 'Calibri';
     border: 0.1px solid lightgray;
+    cursor: inherit;
 }
 
 :host ::ng-deep tbody tr:nth-child(odd) {
@@ -149,22 +150,53 @@ table {
         outline: none;
     }
 
-    & input:focus {
-        border: 1px solid cornflowerblue;
-    }
-
     & select{
         display: inline-flex;
         vertical-align: middle;
         margin: .5rem 0rem 0rem 0rem;
         height: 22px;
 
+        font: normal .85rem 'Calibri';
         border: 1px solid gray;
         outline: none;
         box-sizing: border-box;
     }
 
-    & #codigo { width: 5rem; }
-    & #nome { width: 15rem; }
+    & textarea {
+        display: inline-flex;
+        vertical-align: middle;
+        margin: 0rem .5rem 0rem .5rem;
+        width: 97.5%;
+
+        font: normal .85rem 'Calibri';
+        border: 1px solid gray;
+        outline: none;
+        box-sizing: border-box;
+        resize: none;
+    }
+
+    & input:focus, select:focus, textarea:focus{
+        border: 1px solid cornflowerblue;
+    }
+
+    /*Linha 01*/
+    & #codigo { width: 3rem; }
+    & #nome { width: 12rem; }
+    & #medida { width: 8rem;}
+
+    /*Linha 02*/
+    & #marca { width: 8rem; }
     & #categorias { width: 10rem;}
+    & #localizacao { width: auto;}
+
+    /*Linha 03*/
+    & label[for='almoxarifado'] { width: 6rem;}
+    & #centro_custo { width: 10rem; }
+    & #almoxarifado { width: 10rem; }
+
+
+}
+
+:host ::ng-deep option {
+    opacity: 0.5;
 }

@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -35,10 +34,6 @@ export class ProductsComponent {
         text += `<tr id="${data[i].id}"><td>${data[i].codigo}</td><td>${data[i].nome}</td><td>${data[i].medida}</td></tr>`;
       }
 
-      for (let i = data.length; i < 10; i++ ) {
-        text += '<tr><td></td><td></td><td></td></tr>';
-      }
-
       this.inner = this.sanitizer.bypassSecurityTrustHtml(text);
       
       (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
@@ -60,7 +55,7 @@ export class ProductsComponent {
 
       for(let i in data){
         (document.querySelector(`#${tabela}`) as HTMLElement).innerHTML += 
-        `<option value="${data[i].id}">${data[i].nome}</option>`
+        `<option value="${data[i].id}">${String(data[i].codigo).padStart(3,'0')} - ${data[i].nome}</option>`
       }
     })
   }

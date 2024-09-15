@@ -8,6 +8,7 @@ app.post('/login', async function(req, res) {
     
     let[query] = await con.promise().query(`CALL user_validate('${req.body.userIn}', '${req.body.passwordIn}')`);
 
+    
     if(query[0][0] == undefined){
         res.send({
             falied:'userIn & passwordIn dont match'
@@ -27,6 +28,22 @@ app.get('/categorias', async function (req, res) {
     let [query] = await con.promise().query('SELECT * FROM categorias');
 
     res.send(query);
+})
+
+// Lookup Centro Custos request
+app.get('/centro_custo', async function (req, res) {
+
+    let [query] = await con.promise().query('SELECT * FROM centro_custo');
+
+    res.send(query)
+})
+
+// LookUp Almoxarifado request
+app.get('/almoxarifado', async function (req, res) {
+
+    let [query] = await con.promise().query('SELECT * FROM almoxarifado')
+
+    res.send(query)
 })
 
 // dataTable :: Products

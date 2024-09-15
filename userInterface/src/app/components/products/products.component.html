@@ -6,14 +6,19 @@
         </div>
 
         <nav class="toolbar">
-            <button (click)="openDetail()"><img src="../../assets/add.svg" alt="img-add.svg">
-                Incluir</button>
-            <button><img src="../../assets/edit.svg" alt="img-edit.svg">
-                Alterar</button>
-            <button><img src="../../assets/delete.svg" alt="img-delete.svg">
-                Excluir</button>
-            <button><img src="../../assets/consult.svg" alt="img-consult.svg">
-                Consultar</button>
+            <div class="crud">
+                <button (click)="openDetail()"><img src="../../assets/add.svg" alt="img-add.svg">
+                    Incluir</button>
+                <button><img src="../../assets/edit.svg" alt="img-edit.svg">
+                    Alterar</button>
+                <button><img src="../../assets/delete.svg" alt="img-delete.svg">
+                    Excluir</button>
+                <button><img src="../../assets/consult.svg" alt="img-consult.svg">
+                    Consultar</button>
+            </div>
+            <div class="save">
+                
+            </div>
         </nav>
     </header>
 
@@ -44,21 +49,47 @@
 
         <div class="data-record">
             <label for="codigo">Código:</label>
-            <input type="text" id="codigo">
+            <input maxlength="3" type="text" id="codigo">
 
             <label for="nome">Produto:</label>
-            <input type="text" id="nome">
-            <br>
-            <label for="Marca">Marca:</label>
-            <input type="text" id="marca">
-
+            <input maxlength="25" type="text" id="nome">
+            
             <label for="medida">Medida:</label>
-            <input type="text" id="medida">
+            <input maxlength="15" type="text" id="medida">
+
             <br>
+            
+            <label for="Marca">Marca:</label>
+            <input maxlength="25" type="text" id="marca">
+            
             <label for="categorias">Categoria:</label>
             <select #sel01 (focus)="lookup(sel01.id)" id="categorias">
                 <option hidden></option>
             </select>
+
+            <label for="localizacao">Armaz.:</label>
+            <select id="localizacao">
+                <option hidden></option>
+                <option value="Praletelira">Prateleira</option>
+                <option value="Refrigerador">Refrigerador</option>
+                <option value="Palete">Palete</option>
+            </select>
+
+            <label for="centro_custo">Centro C.:</label>
+            <select #sel02 id="centro_custo" (focus)="lookup(sel02.id)">
+                <option hidden></option>
+            </select>
+
+            <label for="almoxarifado">Almoxarifado:</label>
+            <select #sel03 id="almoxarifado" (focus)="lookup(sel03.id)">
+                <option hidden></option>
+            </select>
+            
+            <br>
+            
+            <label for="descricao">Descrição:</label>
+            <br>
+            <textarea maxlength="255" rows="3" id="descricao"></textarea>
         </div>
     </main>
 </section>

@@ -33,7 +33,7 @@ export class LoginComponent {
         userIn : (document.querySelector('#userIn') as HTMLInputElement).value,
         passwordIn : Md5.hashStr((document.querySelector('#passwordIn') as HTMLInputElement).value),
       })
-    }).then(res => res.json()).then(data => {
+    }).then(req => req.json()).then(data => {
 
       if(data.falied != undefined){
         this.message = "Usuário e Senha incompatíveis!";
