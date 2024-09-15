@@ -14,23 +14,37 @@ header {
     }
 
     & .toolbar {
+        width: 100%;
         background-color: #DDE6EA;
         box-shadow: inset 0px 6px 3px -3px rgba(0, 0, 0, 0.5);
 
         & button{
             margin: .5rem 0rem 0.5rem .5rem;
             width: 4.5rem;
-            font: normal .8rem 'Calibri';
             height: 3rem;
-            background: linear-gradient(to top, lightgray, white);
+            
+            font: normal .8rem 'Calibri';
             border-radius: 5px;
-            box-shadow: 2px 2px 3px -2px ;
             border: 1px solid gray;
+            
+            box-shadow: 2px 2px 3px -2px ;
+            background: linear-gradient(to top, lightgray, white);
         }
     
         & button:hover {
             cursor: pointer;
             filter: brightness(0.9);
+        }
+
+        & button:disabled {
+            cursor: inherit;
+            filter: none;
+            img {opacity: .5;}
+        }
+
+        .save {
+            float: right;
+            margin-right: .5rem;
         }
     }
 }
@@ -193,10 +207,4 @@ table {
     & label[for='almoxarifado'] { width: 6rem;}
     & #centro_custo { width: 10rem; }
     & #almoxarifado { width: 10rem; }
-
-
-}
-
-:host ::ng-deep option {
-    opacity: 0.5;
 }

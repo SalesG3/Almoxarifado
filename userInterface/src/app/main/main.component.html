@@ -4,7 +4,7 @@
             <h1>Sistema de Compras e Almoxarifado</h1>
         </div>
         <div class="infoBox">
-            <button>Sair</button>
+            <button (click)="logOut()">Sair</button>
             <span class="client">{{userSession.client}}</span><br>
             <span>Usuário: {{userSession.user}} | Versão: {{userSession.version}}</span>
         </div>
@@ -14,7 +14,7 @@
 
         <button #nav01 value="cadastro" (click)="listDown(nav01)">Cadastro</button>
         <div class="listDown" id="cadastro">
-            <a href="#" [routerLink]="'/index/products'">Produtos</a>
+            <a href="#" [routerLink]="'/main/products'">Produtos</a>
             <a href="#">Fornecedores</a>
             <a href="#">Secretarias</a>
             <a href="#">Contratos</a>

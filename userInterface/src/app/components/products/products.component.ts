@@ -19,8 +19,13 @@ export class ProductsComponent {
   }
 
   openDetail(){
-    (document.querySelector('.grid-table') as HTMLElement).setAttribute('style','display: none');
-    (document.querySelector('.detail-record') as HTMLElement).removeAttribute('style')
+    (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
+    (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
+    (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
+
+    for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
+      (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+    }
   }
 
   async reqRecords () {
@@ -31,7 +36,7 @@ export class ProductsComponent {
       let text : string = "";
 
       for (let i in data) {
-        text += `<tr id="${data[i].id}"><td>${data[i].codigo}</td><td>${data[i].nome}</td><td>${data[i].medida}</td></tr>`;
+        text += `<tr id="${data[i].id}"><td>${String(data[i].codigo).padStart(4,'0')}</td><td>${data[i].nome}</td><td>${data[i].medida}</td></tr>`;
       }
 
       this.inner = this.sanitizer.bypassSecurityTrustHtml(text);

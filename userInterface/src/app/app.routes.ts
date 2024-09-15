@@ -6,7 +6,7 @@ import { ProductsComponent } from './components/products/products.component';
 
 export const routes: Routes = [
     {path:"", component: LoginComponent},
-    {path:"index", component: MainComponent, children: [
+    {path:"main", component: MainComponent, children: [
         {path:"products", component: ProductsComponent}
     ]}
 ];

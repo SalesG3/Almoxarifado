@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../services/session.service';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainComponent {
 
   userSession : SessionService;
 
-  constructor (private session : SessionService) {
+  constructor (private session : SessionService, private router: Router) {
 
 
     this.userSession = {
@@ -22,6 +23,11 @@ export class MainComponent {
       version: session.version,
     }
 
+  }
+
+  logOut(){
+    this.session.user = "";
+    this.router.navigate([''])
   }
 
   listDown(even : HTMLButtonElement){

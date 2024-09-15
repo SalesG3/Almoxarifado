@@ -41,7 +41,7 @@ export class LoginComponent {
       } else if (data.sucess != undefined){
         this.message = "";
         this.session.user = data.sucess[0].usuario;
-        this.router.navigate(['index'])
+        this.router.navigate(['main'])
       }
     })
   }
