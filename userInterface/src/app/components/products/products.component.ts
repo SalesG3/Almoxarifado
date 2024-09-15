@@ -18,7 +18,7 @@ export class ProductsComponent {
     }
   }
 
-  openDetail(){
+  toggleScreen(){
     (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
@@ -27,6 +27,29 @@ export class ProductsComponent {
       (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
     }
   }
+
+  async newRecord(){
+    
+    let request = await fetch('http://localhost:8000/produtos', {
+      method: "POST",
+      headers: { "Content-Type":"application/json"},
+      body: JSON.stringify({
+        codigo : (document.querySelector('#codigo') as HTMLInputElement).value,
+        nome : (document.querySelector('#nome') as HTMLInputElement).value,
+        marca : (document.querySelector('#marca') as HTMLInputElement).value,
+        medida : (document.querySelector('#medida') as HTMLInputElement).value,
+        categoria : (document.querySelector('#categoria') as HTMLSelectElement).value,
+        localizacao : (document.querySelector('#localizacao') as HTMLSelectElement).value,
+        centro_custo : (document.querySelector('#centro_custo') as HTMLSelectElement).value,
+        almoxarifado : (document.querySelector('#almoxarifado') as HTMLSelectElement).value,
+        descricao : (document.querySelector('#descricao') as HTMLInputElement).value
+      })
+    })
+    .then(response => response.json()).then(data => {
+      console.log(data)
+    })
+  }
+  
 
   async reqRecords () {
 
@@ -54,7 +77,7 @@ export class ProductsComponent {
 
   async lookup (tabela : string) {
 
-    let req = await fetch(`http://localhost:8000/${tabela}/`)
+    let req = await fetch(`http://localhost:8000/lookup/${tabela}/`)
     .then(req => req.json()).then((data) => {
       (document.querySelector(`#${tabela}`) as HTMLElement).innerHTML = '<option hidden></option>';
 

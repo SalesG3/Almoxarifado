@@ -200,7 +200,7 @@ table {
 
     /*Linha 02*/
     & #marca { width: 8rem; }
-    & #categorias { width: 10rem;}
+    & #categoria { width: 10rem;}
     & #localizacao { width: auto;}
 
     /*Linha 03*/
