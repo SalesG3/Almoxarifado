@@ -1,49 +1,48 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
+import { FunctionService } from '../../services/function.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [FormsModule],
+  imports: [],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 
-  inner : any;
+  component : string = 'produtos';
+
+  innerGrid : any;
   mode : string = "";
   mensagem : string = "";
 
-  constructor (private sanitizer : DomSanitizer ) {
-    if(typeof document != "undefined"){
-      this.reqRecords();
-    }
-  }
+  // Comum Functions :::
 
-  toggleScreen(mode : string){
+  toggleScreen : Function;
+  selectLookup : Function;
+
+  constructor (private sanitizer : DomSanitizer,private functionService : FunctionService ) {
+
+    // Declaring Commum functions :::
+
+    this.toggleScreen = functionService.toggleScreen;
+    this.selectLookup = functionService.selectLookup;
+
     
-    (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
-    (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
-    (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
-
-    for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
-      (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+    if(typeof document != "undefined"){
+      this.dataGrid()
     }
-
-    for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
-      (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
-    }
-
-    this.mode = mode;
-    this.mensagem = "";
-
-    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
-      (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLElement).removeAttribute('style')
-    }
-
   }
 
+  // Complement to dataGrid in functionService :::
+  async dataGrid ( ) {
+    this.innerGrid = this.sanitizer.bypassSecurityTrustHtml(
+      await this.functionService.dataGrid(this.component)
+    )
+  }
+  
   async newRecord(){
     
     let request = await fetch('http://localhost:8000/produtos', {
@@ -75,44 +74,6 @@ export class ProductsComponent {
 
         this.mensagem = "Código já está sendo utilizado em outro registro."
 
-      }
-    })
-  }
-  
-
-  async reqRecords () {
-
-    let req = await fetch('http://localhost:8000/produtos')
-    .then((req) => req.json()).then((data) => {
-
-      let text : string = "";
-
-      for (let i in data) {
-        text += `<tr id="${data[i].id}"><td>${String(data[i].codigo).padStart(4,'0')}</td><td>${data[i].nome}</td><td>${data[i].medida}</td></tr>`;
-      }
-
-      this.inner = this.sanitizer.bypassSecurityTrustHtml(text);
-      
-      (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
-
-        if((document.querySelector('.focus') as HTMLTableElement)){
-          (document.querySelector('.focus') as HTMLTableElement).classList.remove('focus')
-        }
-
-        ((event.target as HTMLTableCellElement).parentNode as HTMLTableRowElement).classList.add('focus');
-      })
-    })
-  }
-
-  async lookup (tabela : string) {
-
-    let req = await fetch(`http://localhost:8000/lookup/${tabela}/`)
-    .then(req => req.json()).then((data) => {
-      (document.querySelector(`#${tabela}`) as HTMLElement).innerHTML = '<option hidden></option>';
-
-      for(let i in data){
-        (document.querySelector(`#${tabela}`) as HTMLElement).innerHTML += 
-        `<option value="${data[i].id}">${String(data[i].codigo).padStart(3,'0')} - ${data[i].nome}</option>`
       }
     })
   }

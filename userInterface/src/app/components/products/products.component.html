@@ -1,5 +1,5 @@
-<section>
-    <header>
+<section class="component">
+    <header class="header">
 
         <div class="title-component">
             <span>Produtos:</span>
@@ -43,7 +43,7 @@
                 <button>Filtrar</button>
             </div>
             
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th class="codigo">Código:</th>
@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 
-                <tbody [innerHTML]="inner" id="bodyTable"></tbody>
+                <tbody [innerHTML]="innerGrid" id="bodyTable"></tbody>
             </table>
         </div>
     </main>
@@ -75,7 +75,7 @@
                 <input maxlength="25" type="text" id="marca">
                 
                 <label for="categoria">Categoria:</label>
-                <select #sel01 (focus)="lookup(sel01.id)" id="categoria">
+                <select #sel01 (focus)="selectLookup(sel01.id)" id="categoria">
                     <option hidden></option>
                 </select>
     
@@ -88,12 +88,12 @@
                 </select>
     
                 <label for="centro_custo">Centro C.:</label>
-                <select #sel02 id="centro_custo" (focus)="lookup(sel02.id)">
+                <select #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)">
                     <option hidden></option>
                 </select>
     
                 <label for="almoxarifado">Almoxarifado:</label>
-                <select #sel03 id="almoxarifado" (focus)="lookup(sel03.id)">
+                <select #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)">
                     <option hidden></option>
                 </select>
                 
