@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FunctionService } from '../../services/function.service';
 import { FormsModule } from '@angular/forms'
@@ -27,7 +27,9 @@ export class ProductsComponent {
   validateInputs : Function;
   newRecord : Function;
 
-  constructor (private sanitizer : DomSanitizer,private functionService : FunctionService ) {
+  
+
+  constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
     // Declaring main object :::
     this.dataRecord = { codigo:'', nome:'', medida:'', marca:'', categoria:'',
@@ -35,7 +37,6 @@ export class ProductsComponent {
     }
 
     // Declaring Commum functions :::
-
     this.newRecord = functionService.newRecord;
     this.toggleScreen = functionService.toggleScreen;
     this.selectLookup = functionService.selectLookup;
@@ -56,6 +57,31 @@ export class ProductsComponent {
 
   // Complement to newRecord in functionService :::
   async saveRecord ( ) {
-     this.newRecord(['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord);
+     this.newRecord(
+      ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
+    );
+  }
+
+  // TESTE 
+
+  async consultRecord ( ) {
+
+    let rows = (document.querySelectorAll('tr'))
+    let recordID
+
+    for(let i = 0; i < rows.length; i++){
+      if((rows[i] as HTMLElement).classList.contains('focus')){
+        recordID = (rows[i] as HTMLElement).id;
+      }
+    }
+
+    if(!recordID){ return }
+
+    let request = await fetch(`http://localhost:8000/produtos/${recordID}`).then(res => res.json());
+
+    this.toggleScreen();
+
+
+
   }
 }

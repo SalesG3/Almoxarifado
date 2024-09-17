@@ -33,3 +33,11 @@ app.post('/produtos', async function (req, res) {
     }    
 });
 
+// Request for a especifiqued record
+app.get('/produtos/:id', async function (req, res) {
+
+    let [query] = await con.promise().execute(`SELECT codigo, nome, marca, medida, categoria, localizacao,
+        centro_custo, almoxarifado, descricao FROM produtos WHERE id = ${req.params.id}`)
+
+    res.send(query)
+})

@@ -51,10 +51,11 @@ export class FunctionService {
     let request = await fetch(`http://localhost:8000/${table}`).then(response => response.json())
     let text : string = "";
 
-    for (let i in request) { text += '<tr value='+ request[i].id +'>'
+    for (let i in request) { text += '<tr id='+ request[i].id +'>'
 
       for (let j in request[i]){
-        if(j != 'id'){ text += `<td class="${j}">` + request[i][j] + '</td>'; }
+        if(j == 'codigo'){text += `<td class="${j}">` + String(request[i][j]).padStart(3, '0') + '</td>';}
+        else if(j != 'id'){ text += `<td class="${j}">` + request[i][j] + '</td>'; }
 
       } text += '</td>'
     };

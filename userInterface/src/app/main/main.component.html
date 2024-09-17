@@ -14,17 +14,26 @@
 
         <button #nav01 value="cadastro" (click)="listDown(nav01)">Cadastro</button>
         <div class="listDown" id="cadastro">
+            <a href="#">Almoxarifados</a>
             <a href="#" [routerLink]="'/main/category'">Categorias</a>
-            <a href="#" [routerLink]="'/main/products'">Produtos</a>
+            <a href="#">Centro de Custos</a>
             <a href="#">Fornecedores</a>
+            <a href="#">Local</a>
+            <a href="#" [routerLink]="'/main/products'">Produtos</a>
             <a href="#">Secretarias</a>
-            <a href="#">Contratos</a>
         </div>
 
-        <button #nav02 value="movimentacao" (click)="listDown(nav02)">Movimentação</button>
-        <div class="listDown" id="movimentacao">
+        <button #nav02 value="compras" (click)="listDown(nav02)">Compras</button>
+        <div class="listDown" id="compras">
+            <a href="#">Contratos</a>
             <a href="#">Pedidos</a>
+            <a href="#">Medições</a>
+            <a href="#">Avulsos</a>
+        </div>
+        <button #nav03 value="almoxarifado" (click)="listDown(nav03)">Almoxarifado</button>
+        <div class="listDown" id="almoxarifado">
             <a href="#">Entradas</a>
+            <a href="#">Requisições</a>
             <a href="#">Saídas</a>
         </div>
         <button>Relatórios</button>
