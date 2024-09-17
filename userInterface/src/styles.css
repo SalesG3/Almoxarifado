@@ -44,7 +44,8 @@
         & button:disabled {
             cursor: inherit;
             filter: none;
-            img {opacity: .5;}
+            opacity: .25;
+            img {opacity: .25;}
         }
 
         .save {
@@ -99,10 +100,19 @@
     border-collapse: collapse;
     background-color: white;
 
+    & thead, tbody {
+        display: block;
+        overflow-y: scroll;
+    }
+
+    & tbody {
+        height: 17rem;
+    }
+
     & td, th {
         border: .5px solid lightgray;
         text-align: left;
-        padding-left: 0.25rem;
+        padding-left: 0.5rem;
     }
 
     & th {

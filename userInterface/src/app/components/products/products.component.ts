@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
 import { FunctionService } from '../../services/function.service';
+import { FormsModule } from '@angular/forms'
+import { InterfaceProduto } from '../../services/interfaces';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 
-  component : string = 'produtos';
+  component : string = 'Produtos';
+  dataRecord : InterfaceProduto;
 
   innerGrid : any;
   mode : string = "";
@@ -22,13 +24,22 @@ export class ProductsComponent {
 
   toggleScreen : Function;
   selectLookup : Function;
+  validateInputs : Function;
+  newRecord : Function;
 
   constructor (private sanitizer : DomSanitizer,private functionService : FunctionService ) {
 
+    // Declaring main object :::
+    this.dataRecord = { codigo:'', nome:'', medida:'', marca:'', categoria:'',
+      localizacao:'', centro_custo:'',almoxarifado:'', descricao:'',
+    }
+
     // Declaring Commum functions :::
 
+    this.newRecord = functionService.newRecord;
     this.toggleScreen = functionService.toggleScreen;
     this.selectLookup = functionService.selectLookup;
+    this.validateInputs = functionService.validateInputs;
 
     
     if(typeof document != "undefined"){
@@ -42,64 +53,9 @@ export class ProductsComponent {
       await this.functionService.dataGrid(this.component)
     )
   }
-  
-  async newRecord(){
-    
-    let request = await fetch('http://localhost:8000/produtos', {
-      method: "POST",
-      headers: { "Content-Type":"application/json"},
-      body: JSON.stringify({
-        codigo : (document.querySelector('#codigo') as HTMLInputElement).value,
-        nome : (document.querySelector('#nome') as HTMLInputElement).value,
-        marca : (document.querySelector('#marca') as HTMLInputElement).value,
-        medida : (document.querySelector('#medida') as HTMLInputElement).value,
-        categoria : (document.querySelector('#categoria') as HTMLSelectElement).value,
-        localizacao : (document.querySelector('#localizacao') as HTMLSelectElement).value,
-        centro_custo : (document.querySelector('#centro_custo') as HTMLSelectElement).value,
-        almoxarifado : (document.querySelector('#almoxarifado') as HTMLSelectElement).value,
-        descricao : (document.querySelector('#descricao') as HTMLInputElement).value
-      })
-    })
-    .then(response => response.json()).then(data => {
-      
-      if(data && data.sucess != undefined){
 
-        for(let i = 0; i < document.querySelectorAll('.data-record input, select, textarea').length; i++){
-          (document.querySelectorAll('.data-record input, select, textarea')[i] as HTMLInputElement).toggleAttribute('disabled')
-        }
-
-        this.mode = "Consultando"
-
-      } else if(data && data.falied != undefined){
-
-        this.mensagem = "Código já está sendo utilizado em outro registro."
-
-      }
-    })
+  // Complement to newRecord in functionService :::
+  async saveRecord ( ) {
+     this.newRecord(['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord);
   }
-
-  inputValidates ( ) {
-
-    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
-      if((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).value == ""){
-        (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).setAttribute('style','border: 1px solid red;')
-
-        this.mensagem = "Campos em vermelho são Obrigatórios.";
-
-      } else if ((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).getAttribute('style')){
-        (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).removeAttribute('style')
-      
-      }
-    }
-    
-    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
-      if((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).getAttribute('style')){
-        return
-      }
-    }
-
-    this.mensagem = "";
-    this.newRecord();
-  }
-  
 }

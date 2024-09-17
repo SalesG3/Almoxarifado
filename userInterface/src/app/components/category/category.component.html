@@ -1,1 +1,68 @@
-<p>category works!</p>
+<section class="component">
+    <header class="header">
+
+        <div class="title-component">
+            <span>{{component}}</span>
+        </div>
+
+        <nav class="toolbar">
+            <div class="save" hidden>
+                <span>Modo:<br>{{mode}}</span>
+                <button #save value="Consultando" (click)="newRecord()">
+                    <img src="../../../assets/save.svg" alt="img-save.svg">
+                    Salvar</button>
+                <button #cancel value="" (click)="toggleScreen(cancel.value)">
+                    <img src="../../../assets/cancel.svg" alt="img-cancel.svg">
+                    Cancelar</button>
+            </div>
+
+            <div class="crud">
+                <button #crud01 value="Incluindo" (click)="toggleScreen(crud01.value)">
+                    <img src="../../assets/add.svg" alt="img-add.svg">
+                    Incluir</button>
+                <button><img src="../../assets/edit.svg" alt="img-edit.svg">
+                    Alterar</button>
+                <button><img src="../../assets/delete.svg" alt="img-delete.svg">
+                    Excluir</button>
+                <button><img src="../../assets/consult.svg" alt="img-consult.svg">
+                    Consultar</button>
+            </div>
+            
+        </nav>
+    </header>
+
+    <main id="grid-table">
+
+        <div class="grid-table">
+
+            <div class="search">
+                <img src="../../assets/lupa.svg" alt="img-search.svg">
+                <input type="text" id="search">
+                <button>Procurar</button>
+                <span>|</span>
+                <button>Filtrar</button>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="codigo">Código:</th>
+                        <th class="produto">Produto:</th>
+                        <th class="medida">Medida:</th>
+                    </tr>
+                </thead>
+                
+                <tbody [innerHTML]="innerGrid" id="bodyTable"></tbody>
+            </table>
+        </div>
+    </main>
+        
+    <main id="detail-record" hidden>
+        <div class="detail-record">
+            <div class="data-record">
+                
+                <span class="mensagem">{{mensagem}}</span>
+            </div>
+        </div>
+    </main>
+</section>

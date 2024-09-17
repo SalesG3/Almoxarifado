@@ -1,9 +1,10 @@
 :host ::ng-deep td {
-    height: 1.5rem;
+    height: 1.3rem;
     padding-left: 0.5rem;
     font: normal 1rem 'Calibri';
     border: 0.1px solid lightgray;
     cursor: inherit;
+    
 }
 
 :host ::ng-deep tbody tr:nth-child(odd) {
@@ -15,10 +16,14 @@
     border: 1px solid cornflowerblue !important;  
 }
 
+:host ::ng-deep .codigo { width: 5rem; }
+:host ::ng-deep .nome { width: 30.5rem; }
+:host ::ng-deep .medida { width: 8rem; }
+
 /* Colunas da Grid */
 .codigo { width: 5rem; }
-.produto { width: 22.5rem; }
-.medida { width: 7.5rem; }
+.produto { width: 30.5rem; }
+.medida { width: 8rem; }
 
 /*Linha 01*/
 #codigo { width: 3rem; }

@@ -51,16 +51,12 @@ export class FunctionService {
     let request = await fetch(`http://localhost:8000/${table}`).then(response => response.json())
     let text : string = "";
 
-    for (let i in request) {
-      text += '<tr value='+ request[i].id +'>'
+    for (let i in request) { text += '<tr value='+ request[i].id +'>'
 
       for (let j in request[i]){
-        if(j != 'id'){
-          text += '<td>' + request[i][j] + '</td>';
-        }
+        if(j != 'id'){ text += `<td class="${j}">` + request[i][j] + '</td>'; }
 
-      }
-      text += '</td>'
+      } text += '</td>'
     };
 
     (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
@@ -73,5 +69,57 @@ export class FunctionService {
     })
 
     return text
+  }
+
+  //Validate inputs requireds and return boolean :::
+  validateInputs (required : string[]) {
+
+    let requiredInputs = document.querySelectorAll(required.toString());
+
+    for(let i = 0; i < requiredInputs.length; i++){
+      if((requiredInputs[i] as HTMLInputElement).value == ""){
+        (requiredInputs[i] as HTMLInputElement).setAttribute('style','border: 1px solid red;')
+
+        this.mensagem = "Campos em vermelho são Obrigatórios.";
+
+      } else if ((requiredInputs[i] as HTMLInputElement).getAttribute('style')){
+        (requiredInputs[i] as HTMLInputElement).removeAttribute('style')
+      
+      }
+    }
+    
+    for(let i = 0; i < requiredInputs.length; i++){
+      if((requiredInputs[i] as HTMLInputElement).getAttribute('style')){
+        return false
+      }
+    }
+
+    this.mensagem = "";
+    return true
+  }
+
+  // Request for a POST a new record
+  async newRecord(required : string[], table : string, record : object){
+
+    if(this.validateInputs(required) == false){ return }
+
+    let request = await fetch(`http://localhost:8000/${table}`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(record)
+    }).then(response => {
+      if (response.ok) { return response.json()} else {console.log(response.status + response.statusText);
+        this.mensagem = 'Inconsistência Interna! Entrar em contato com Fator Sistemas'; return}
+    });
+
+    if(request.sucess){
+      this.toggleScreen("");
+      this.dataGrid(table)
+    }
+
+    if(request.falied){
+      (document.querySelector('#codigo') as HTMLElement).setAttribute('style','border: 1px solid red;');
+      this.mensagem = 'Código já está sendo utilizado em outro registro!';
+    }
   }
 }

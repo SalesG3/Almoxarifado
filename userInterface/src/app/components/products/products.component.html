@@ -2,13 +2,13 @@
     <header class="header">
 
         <div class="title-component">
-            <span>Produtos:</span>
+            <span>{{component}}:</span>
         </div>
 
         <nav class="toolbar">
             <div class="save" hidden>
                 <span>Modo:<br>{{mode}}</span>
-                <button #save value="Consultando" (click)="inputValidates()">
+                <button #save value="Consultando" (click)="saveRecord()">
                     <img src="../../../assets/save.svg" alt="img-save.svg">
                     Salvar</button>
                 <button #cancel value="" (click)="toggleScreen(cancel.value)">
@@ -61,26 +61,26 @@
         <div class="detail-record">
             <div class="data-record">
                 <label for="codigo">Código:</label>
-                <input maxlength="3" type="number" id="codigo">
+                <input type="number" id="codigo" [(ngModel)]="dataRecord.codigo">
                 
                 <label for="nome">Produto:</label>
-                <input maxlength="25" type="text" id="nome">
+                <input maxlength="25" type="text" id="nome" [(ngModel)]="dataRecord.nome">
                 
                 <label for="medida">Medida:</label>
-                <input maxlength="15" type="text" id="medida">
+                <input maxlength="15" type="text" id="medida" [(ngModel)]="dataRecord.medida">
     
                 <br>
                 
                 <label for="marca">Marca:</label>
-                <input maxlength="25" type="text" id="marca">
+                <input maxlength="25" type="text" id="marca" [(ngModel)]="dataRecord.marca">
                 
                 <label for="categoria">Categoria:</label>
-                <select #sel01 (focus)="selectLookup(sel01.id)" id="categoria">
+                <select #sel01 (focus)="selectLookup(sel01.id)" id="categoria" [(ngModel)]="dataRecord.categoria">
                     <option hidden></option>
                 </select>
     
                 <label for="localizacao">Armazem:</label>
-                <select id="localizacao">
+                <select id="localizacao" [(ngModel)]="dataRecord.localizacao">
                     <option hidden></option>
                     <option value="Praletelira">Prateleira</option>
                     <option value="Refrigerador">Refrigerador</option>
@@ -88,12 +88,12 @@
                 </select>
     
                 <label for="centro_custo">Centro C.:</label>
-                <select #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)">
+                <select #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)" [(ngModel)]="dataRecord.centro_custo">
                     <option hidden></option>
                 </select>
     
                 <label for="almoxarifado">Almoxarifado:</label>
-                <select #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)">
+                <select #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)" [(ngModel)]="dataRecord.almoxarifado">
                     <option hidden></option>
                 </select>
                 
@@ -101,7 +101,7 @@
                 
                 <label for="descricao">Descrição:</label>
                 <br>
-                <textarea maxlength="255" rows="3" id="descricao"></textarea>
+                <textarea maxlength="255" rows="3" id="descricao"  [(ngModel)]="dataRecord.descricao"></textarea>
                 <br><br>
                 <span class="mensagem">{{mensagem}}</span>
             </div>
