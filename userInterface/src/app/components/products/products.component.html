@@ -7,14 +7,18 @@
 
         <nav class="toolbar">
             <div class="save" hidden>
-                <button (click)="newRecord()"><img src="../../../assets/save.svg" alt="img-save.svg">
+                <span>Modo:<br>{{mode}}</span>
+                <button #save value="Consultando" (click)="inputValidates()">
+                    <img src="../../../assets/save.svg" alt="img-save.svg">
                     Salvar</button>
-                <button (click)="toggleScreen()"><img src="../../../assets/cancel.svg" alt="img-cancel.svg">
+                <button #cancel value="" (click)="toggleScreen(cancel.value)">
+                    <img src="../../../assets/cancel.svg" alt="img-cancel.svg">
                     Cancelar</button>
             </div>
 
             <div class="crud">
-                <button (click)="toggleScreen()"><img src="../../assets/add.svg" alt="img-add.svg">
+                <button #crud01 value="Incluindo" (click)="toggleScreen(crud01.value)">
+                    <img src="../../assets/add.svg" alt="img-add.svg">
                     Incluir</button>
                 <button><img src="../../assets/edit.svg" alt="img-edit.svg">
                     Alterar</button>
@@ -57,7 +61,7 @@
         <div class="detail-record">
             <div class="data-record">
                 <label for="codigo">Código:</label>
-                <input maxlength="3" type="text" id="codigo">
+                <input maxlength="3" type="number" id="codigo">
                 
                 <label for="nome">Produto:</label>
                 <input maxlength="25" type="text" id="nome">
@@ -98,6 +102,8 @@
                 <label for="descricao">Descrição:</label>
                 <br>
                 <textarea maxlength="255" rows="3" id="descricao"></textarea>
+                <br><br>
+                <span class="mensagem">{{mensagem}}</span>
             </div>
         </div>
     </main>

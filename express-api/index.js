@@ -1,5 +1,7 @@
-const server = require('./server.js');
+require('./routes/lookups.js');
+require('./routes/products.js');
 
+const server = require('./server.js');
 const app = server.app;
 const con = server.con;
 
@@ -21,6 +23,3 @@ app.post('/login', async function(req, res) {
         })
     }
 })
-
-require('./routes/lookups.js');
-require('./routes/products.js');

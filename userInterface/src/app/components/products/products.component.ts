@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 
   inner : any;
-  
+  mode : string = "";
+  mensagem : string = "";
+
   constructor (private sanitizer : DomSanitizer ) {
     if(typeof document != "undefined"){
       this.reqRecords();
     }
   }
 
-  toggleScreen(){
+  toggleScreen(mode : string){
+    
     (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
@@ -26,6 +30,18 @@ export class ProductsComponent {
     for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
       (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
     }
+
+    for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
+      (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
+    }
+
+    this.mode = mode;
+    this.mensagem = "";
+
+    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
+      (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLElement).removeAttribute('style')
+    }
+
   }
 
   async newRecord(){
@@ -46,7 +62,20 @@ export class ProductsComponent {
       })
     })
     .then(response => response.json()).then(data => {
-      console.log(data)
+      
+      if(data && data.sucess != undefined){
+
+        for(let i = 0; i < document.querySelectorAll('.data-record input, select, textarea').length; i++){
+          (document.querySelectorAll('.data-record input, select, textarea')[i] as HTMLInputElement).toggleAttribute('disabled')
+        }
+
+        this.mode = "Consultando"
+
+      } else if(data && data.falied != undefined){
+
+        this.mensagem = "Código já está sendo utilizado em outro registro."
+
+      }
     })
   }
   
@@ -87,4 +116,29 @@ export class ProductsComponent {
       }
     })
   }
+
+  inputValidates ( ) {
+
+    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
+      if((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).value == ""){
+        (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).setAttribute('style','border: 1px solid red;')
+
+        this.mensagem = "Campos em vermelho são Obrigatórios.";
+
+      } else if ((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).getAttribute('style')){
+        (document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).removeAttribute('style')
+      
+      }
+    }
+    
+    for(let i = 0; i < document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado').length; i++){
+      if((document.querySelectorAll('#codigo, #nome, #medida, #centro_custo, #almoxarifado')[i] as HTMLInputElement).getAttribute('style')){
+        return
+      }
+    }
+
+    this.mensagem = "";
+    this.newRecord();
+  }
+  
 }
