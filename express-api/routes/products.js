@@ -36,8 +36,25 @@ app.post('/produtos', async function (req, res) {
 // Request for a especifiqued record
 app.get('/produtos/:id', async function (req, res) {
 
-    let [query] = await con.promise().execute(`SELECT codigo, nome, marca, medida, categoria, localizacao,
-        centro_custo, almoxarifado, descricao FROM produtos WHERE id = ${req.params.id}`)
+    let [query] = await con.promise().execute(`CALL consult_product(${req.params.id})`);
+
+    query[0][0].categoria = {
+        id: query[0][0].CAid,
+        codigo: query[0][0].CAcodigo,
+        nome: query[0][0].CAnome
+    }
+
+    query[0][0].centro_custo = {
+        id: query[0][0].CCid,
+        codigo: query[0][0].CCcodigo,
+        nome: query[0][0].CCnome
+    }
+
+    query[0][0].almoxarifado = {
+        id: query[0][0].ALid,
+        codigo: query[0][0].ALcodigo,
+        nome: query[0][0].ALnome
+    }
 
     res.send(query)
 })

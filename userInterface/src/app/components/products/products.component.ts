@@ -14,11 +14,10 @@ import { InterfaceProduto } from '../../services/interfaces';
 export class ProductsComponent {
 
   component : string = 'Produtos';
-  dataRecord : InterfaceProduto;
-
   innerGrid : any;
   mode : string = "";
   mensagem : string = "";
+  dataRecord : InterfaceProduto;
 
   // Comum Functions :::
 
@@ -26,8 +25,6 @@ export class ProductsComponent {
   selectLookup : Function;
   validateInputs : Function;
   newRecord : Function;
-
-  
 
   constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
@@ -41,11 +38,6 @@ export class ProductsComponent {
     this.toggleScreen = functionService.toggleScreen;
     this.selectLookup = functionService.selectLookup;
     this.validateInputs = functionService.validateInputs;
-
-    
-    if(typeof document != "undefined"){
-      this.dataGrid()
-    }
   }
 
   // Complement to dataGrid in functionService :::
@@ -62,26 +54,42 @@ export class ProductsComponent {
     );
   }
 
-  // TESTE 
+  // TESTE
+
+  rowIdentify ( ) {
+
+    if(!(document.querySelector('.focus') as HTMLElement)){ return false }
+    
+    else { return (document.querySelector('.focus') as HTMLElement).id }
+
+  }
 
   async consultRecord ( ) {
 
-    let rows = (document.querySelectorAll('tr'))
-    let recordID
+    if(this.rowIdentify() == false){ return }
 
-    for(let i = 0; i < rows.length; i++){
-      if((rows[i] as HTMLElement).classList.contains('focus')){
-        recordID = (rows[i] as HTMLElement).id;
-      }
-    }
-
-    if(!recordID){ return }
-
-    let request = await fetch(`http://localhost:8000/produtos/${recordID}`).then(res => res.json());
+    let request = await fetch(`http://localhost:8000/produtos/${this.rowIdentify()}`).then(res => res.json());
 
     this.toggleScreen();
+    this.dataRecord = request[0][0];
+    this.mode = "Consultando"
 
+    let select = (document.querySelectorAll('.lookup'));
+    for(let i = 0; i < select.length; i++){
+      if(request[0][0].hasOwnProperty(select[i].id) == true && request[0][0][select[i].id].id != null){
+        let key = request[0][0][select[i].id];
+        
+        (document.querySelector(`#${select[i].id}`) as HTMLSelectElement).innerHTML =
+        `<option value="${key.id}"> ${String(key.codigo).padStart(3, '0')} - ${key.nome}</option>`;
 
+        (this.dataRecord as any)[select[i].id] = key.id;
+      }
 
+      for(let i = 0; i < document.querySelectorAll('input, select, textarea').length; i++){
+        document.querySelectorAll('input, select, textarea')[i].toggleAttribute('disabled');
+      }
+
+      (document.querySelector('#save')?.setAttribute('disabled','true'))
+    }
   }
 }

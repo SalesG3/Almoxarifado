@@ -8,24 +8,63 @@ export class FunctionService {
 
   mode : string = "";
   mensagem : string = "";
+  dataRecord : any;
 
   constructor(private sanitizer : DomSanitizer) { }
 
   // Toggle in grid table and record detail :::
   toggleScreen(mode : string){
-    
+
+
     (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
     (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
 
-    for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
-      (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+    switch (mode) {
+
+      case "Incluindo": 
+        for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
+          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        }
+        break;
+
+      case "Alterando":
+        for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
+          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        }
+        break;
+      
+      case "Deletando":
+        break;
+
+      case "Consultando":
+        for(let i = 0; i < document.querySelectorAll('.save button').length; i++){
+          (document.querySelectorAll('.save button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        }
+        break;
+
+      case "":
+        for(let i = 0; i < document.querySelectorAll('.save button').length; i++){
+          (document.querySelectorAll('.save button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        }
+        for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
+          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        }
+        break;
     }
+
+    
 
     for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
       (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
       (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).removeAttribute('style');
     }
+
+    for(let i = 0; i < document.querySelectorAll('input, select, textarea').length; i++){
+      document.querySelectorAll('input, select, textarea')[i].removeAttribute('disabled');
+    } (document.querySelector('#save')?.removeAttribute('disabled'))
+
+    for(let i in this.dataRecord){this.dataRecord[i] = '';}
 
     this.mode = mode;
     this.mensagem = "";

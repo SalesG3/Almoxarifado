@@ -8,7 +8,7 @@
         <nav class="toolbar">
             <div class="save" hidden>
                 <span>Modo:<br>{{mode}}</span>
-                <button #save value="Consultando" (click)="saveRecord()">
+                <button #save id="save" (click)="saveRecord()">
                     <img src="../../../assets/save.svg" alt="img-save.svg">
                     Salvar</button>
                 <button #cancel value="" (click)="toggleScreen(cancel.value)">
@@ -20,11 +20,11 @@
                 <button #crud01 value="Incluindo" (click)="toggleScreen(crud01.value)">
                     <img src="../../assets/add.svg" alt="img-add.svg">
                     Incluir</button>
-                <button><img src="../../assets/edit.svg" alt="img-edit.svg">
+                <button #crud02 value="Alterando"><img src="../../assets/edit.svg" alt="img-edit.svg">
                     Alterar</button>
-                <button><img src="../../assets/delete.svg" alt="img-delete.svg">
+                <button #crud03 value="Deletar"><img src="../../assets/delete.svg" alt="img-delete.svg">
                     Excluir</button>
-                <button (click)="consultRecord()"><img src="../../assets/consult.svg" alt="img-consult.svg">
+                <button #crud04 value="Consultando" (click)="toggleScreen(crud04.value)"><img src="../../assets/consult.svg" alt="img-consult.svg">
                     Consultar</button>
             </div>
             
@@ -38,9 +38,9 @@
             <div class="search">
                 <img src="../../assets/lupa.svg" alt="img-search.svg">
                 <input type="text" id="search">
-                <button>Procurar</button>
+                <button (click)="dataGrid()">Procurar</button>
                 <span>|</span>
-                <button>Filtrar</button>
+                <button (click)="rowIdentify()">Filtrar</button>
             </div>
             
             <table class="table">
@@ -75,7 +75,7 @@
                 <input maxlength="25" type="text" id="marca" [(ngModel)]="dataRecord.marca">
                 
                 <label for="categoria">Categoria:</label>
-                <select #sel01 (focus)="selectLookup(sel01.id)" id="categoria" [(ngModel)]="dataRecord.categoria">
+                <select class="lookup" #sel01 (focus)="selectLookup(sel01.id)" id="categoria" [(ngModel)]="dataRecord.categoria">
                     <option hidden></option>
                 </select>
     
@@ -88,12 +88,12 @@
                 </select>
     
                 <label for="centro_custo">Centro C.:</label>
-                <select #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)" [(ngModel)]="dataRecord.centro_custo">
+                <select class="lookup" #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)" [(ngModel)]="dataRecord.centro_custo">
                     <option hidden></option>
                 </select>
     
                 <label for="almoxarifado">Almoxarifado:</label>
-                <select #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)" [(ngModel)]="dataRecord.almoxarifado">
+                <select class="lookup" #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)" [(ngModel)]="dataRecord.almoxarifado">
                     <option hidden></option>
                 </select>
                 
