@@ -7,9 +7,9 @@ const con = server.con;
 
 // User Login request
 app.post('/login', async function(req, res) {
+    let {userIn, passwordIn} = req.body;
     
-    let[query] = await con.promise().query(`CALL user_validate('${req.body.userIn}', '${req.body.passwordIn}')`);
-
+    let[query] = await con.promise().query(`CALL user_validate('${userIn}', '${passwordIn}')`);
     
     if(query[0][0] == undefined){
         res.send({

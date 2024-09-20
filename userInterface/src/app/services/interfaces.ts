@@ -1,4 +1,5 @@
 export interface InterfaceProduto {
+    id:string
     codigo:string
     nome:string
     medida:string

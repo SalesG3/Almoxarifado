@@ -25,12 +25,22 @@ export class ProductsComponent {
   selectLookup : Function;
   validateInputs : Function;
   newRecord : Function;
+  updateRecord : Function;
 
   constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
     // Declaring main object :::
-    this.dataRecord = { codigo:'', nome:'', medida:'', marca:'', categoria:'',
-      localizacao:'', centro_custo:'',almoxarifado:'', descricao:'',
+    this.dataRecord = {
+      id:'',
+      codigo:'',
+      nome:'',
+      medida:'',
+      marca:'',
+      categoria:'',
+      localizacao:'',
+      centro_custo:'',
+      almoxarifado:'',
+      descricao:'',
     }
 
     // Declaring Commum functions :::
@@ -38,6 +48,7 @@ export class ProductsComponent {
     this.toggleScreen = functionService.toggleScreen;
     this.selectLookup = functionService.selectLookup;
     this.validateInputs = functionService.validateInputs;
+    this.updateRecord = functionService.updateRecord;
   }
 
   // Complement to dataGrid in functionService :::
@@ -48,10 +59,17 @@ export class ProductsComponent {
   }
 
   // Complement to newRecord in functionService :::
-  async saveRecord ( ) {
-     this.newRecord(
-      ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
-    );
+  async saveRecord () {
+    if(this.mode == "Incluindo"){
+      this.newRecord(
+        ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
+      );
+    }
+    else if(this.mode == "Alterando"){
+      this.updateRecord(
+        ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
+      );
+    }
   }
 
   // TESTE
@@ -65,31 +83,25 @@ export class ProductsComponent {
   }
 
   async consultRecord ( ) {
-
-    if(this.rowIdentify() == false){ return }
+    if(this.rowIdentify() == false){ return false}
 
     let request = await fetch(`http://localhost:8000/produtos/${this.rowIdentify()}`).then(res => res.json());
 
-    this.toggleScreen();
-    this.dataRecord = request[0][0];
-    this.mode = "Consultando"
-
     let select = (document.querySelectorAll('.lookup'));
     for(let i = 0; i < select.length; i++){
+
       if(request[0][0].hasOwnProperty(select[i].id) == true && request[0][0][select[i].id].id != null){
         let key = request[0][0][select[i].id];
         
         (document.querySelector(`#${select[i].id}`) as HTMLSelectElement).innerHTML =
         `<option value="${key.id}"> ${String(key.codigo).padStart(3, '0')} - ${key.nome}</option>`;
 
-        (this.dataRecord as any)[select[i].id] = key.id;
+        request[0][0][select[i].id] = key.id;
       }
-
-      for(let i = 0; i < document.querySelectorAll('input, select, textarea').length; i++){
-        document.querySelectorAll('input, select, textarea')[i].toggleAttribute('disabled');
-      }
-
-      (document.querySelector('#save')?.setAttribute('disabled','true'))
+      else { request[0][0][select[i].id] = ''; }
     }
+    this.dataRecord = request[0][0];
+    console.log(this.dataRecord)
+    return
   }
 }

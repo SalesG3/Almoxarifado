@@ -6,7 +6,7 @@
         </div>
 
         <nav class="toolbar">
-            <div class="save" hidden>
+            <div class="save" id="save-cancel" hidden>
                 <span>Modo:<br>{{mode}}</span>
                 <button #save id="save" (click)="saveRecord()">
                     <img src="../../../assets/save.svg" alt="img-save.svg">
@@ -20,10 +20,15 @@
                 <button #crud01 value="Incluindo" (click)="toggleScreen(crud01.value)">
                     <img src="../../assets/add.svg" alt="img-add.svg">
                     Incluir</button>
-                <button #crud02 value="Alterando"><img src="../../assets/edit.svg" alt="img-edit.svg">
+
+                <button #crud02 value="Alterando" (click)="toggleScreen(crud02.value)">
+                    <img src="../../assets/edit.svg" alt="img-edit.svg">
                     Alterar</button>
-                <button #crud03 value="Deletar"><img src="../../assets/delete.svg" alt="img-delete.svg">
+
+                <button #crud03 value="Deletar">
+                    <img src="../../assets/delete.svg" alt="img-delete.svg">
                     Excluir</button>
+                    
                 <button #crud04 value="Consultando" (click)="toggleScreen(crud04.value)"><img src="../../assets/consult.svg" alt="img-consult.svg">
                     Consultar</button>
             </div>

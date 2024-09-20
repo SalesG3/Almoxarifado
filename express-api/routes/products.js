@@ -33,6 +33,16 @@ app.post('/produtos', async function (req, res) {
     }    
 });
 
+// Request for a Update record
+app.put('/produtos', async function (req, res) {
+
+    let[query] = await con.promise().execute(`CALL update_product('${req.body.id}', '${req.body.codigo}',
+    '${req.body.nome}', '${req.body.marca}', '${req.body.medida}', NULLIF('${req.body.categoria}',''),
+    '${req.body.localizacao}', '${req.body.centro_custo}', '${req.body.almoxarifado}', '${req.body.descricao}')`)
+
+    res.send(query)
+})
+
 // Request for a especifiqued record
 app.get('/produtos/:id', async function (req, res) {
 

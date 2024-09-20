@@ -9,68 +9,91 @@ export class FunctionService {
   mode : string = "";
   mensagem : string = "";
   dataRecord : any;
+  consultRecord : any;
 
   constructor(private sanitizer : DomSanitizer) { }
 
-  // Toggle in grid table and record detail :::
-  toggleScreen(mode : string){
+  // Toggle in grid table and record detail ::: Complet
+  async toggleScreen(mode : string){
 
+    switch ( mode ) {
 
-    (document.querySelector('#grid-table') as HTMLElement).toggleAttribute('hidden');
-    (document.querySelector('#detail-record') as HTMLElement).toggleAttribute('hidden');
-    (document.querySelector('.save') as HTMLDivElement).toggleAttribute('hidden');
+      case "Incluindo":
+        document.querySelector('#grid-table')?.setAttribute('hidden','');
+        document.querySelector('#detail-record')?.removeAttribute('hidden');
+        document.querySelector('#save-cancel')?.removeAttribute('hidden');
 
-    switch (mode) {
-
-      case "Incluindo": 
         for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
-          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+          document.querySelectorAll('.crud button')[i]?.setAttribute('disabled','')
+        };
+
+        document.querySelector('#save')?.removeAttribute('disabled');
+        for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
+          (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('style');
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('disabled');
         }
         break;
 
       case "Alterando":
+        if(await this.consultRecord() == false){ return }
+        document.querySelector('#grid-table')?.setAttribute('hidden','');
+        document.querySelector('#detail-record')?.removeAttribute('hidden');
+        document.querySelector('#save-cancel')?.removeAttribute('hidden');
+
         for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
-          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).setAttribute('disabled','')
+        }
+
+        document.querySelector('#save')?.removeAttribute('disabled');
+        for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('style');
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('disabled');
+        }
+        break;
+
+      case "Consultando":
+        if(await this.consultRecord() == false) { return }
+        document.querySelector('#grid-table')?.setAttribute('hidden','');
+        document.querySelector('#detail-record')?.removeAttribute('hidden');
+        document.querySelector('#save-cancel')?.removeAttribute('hidden');
+
+        document.querySelector('[value="Consultando"')?.setAttribute('disabled','');
+        document.querySelector('#save')?.setAttribute('disabled','');
+
+        for(let i = 0; i < document.querySelectorAll('.data-record input, select, textarea').length; i++){
+          document.querySelectorAll('.data-record input, select, textarea')[i].setAttribute('disabled','');
         }
         break;
       
       case "Deletando":
-        break;
-
-      case "Consultando":
-        for(let i = 0; i < document.querySelectorAll('.save button').length; i++){
-          (document.querySelectorAll('.save button')[i] as HTMLButtonElement).toggleAttribute('disabled')
-        }
+        console.log('Delet Comand')
         break;
 
       case "":
-        for(let i = 0; i < document.querySelectorAll('.save button').length; i++){
-          (document.querySelectorAll('.save button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+        document.querySelector('#grid-table')?.removeAttribute('hidden');
+        document.querySelector('#detail-record')?.setAttribute('hidden','');
+        document.querySelector('#save-cancel')?.setAttribute('hidden','');
+
+        for(let i in this.dataRecord){this.dataRecord[i] = '';}
+
+        for(let i = 0; i < document.querySelectorAll('.toolbar button').length; i++){
+          (document.querySelectorAll('.toolbar button')[i] as HTMLButtonElement).removeAttribute('disabled')
         }
-        for(let i = 0; i < document.querySelectorAll('.crud button').length; i++){
-          (document.querySelectorAll('.crud button')[i] as HTMLButtonElement).toggleAttribute('disabled')
+
+        for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
+          (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('style');
+          document.querySelectorAll('.detail-record input, select, textarea')[i].removeAttribute('disabled');
         }
         break;
     }
-
-    
-
-    for(let i = 0; i < document.querySelectorAll('.detail-record input, select, textarea').length; i++){
-      (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).value = "";
-      (document.querySelectorAll('.detail-record input, select, textarea')[i] as HTMLInputElement).removeAttribute('style');
-    }
-
-    for(let i = 0; i < document.querySelectorAll('input, select, textarea').length; i++){
-      document.querySelectorAll('input, select, textarea')[i].removeAttribute('disabled');
-    } (document.querySelector('#save')?.removeAttribute('disabled'))
-
-    for(let i in this.dataRecord){this.dataRecord[i] = '';}
 
     this.mode = mode;
     this.mensagem = "";
   }
 
-  // Request and insert options with values integrated :::
+  // Request and insert options with values integrated ::: Complet
   async selectLookup (tabela : string) {
 
     let req = await fetch(`http://localhost:8000/lookup/${tabela}/`)
@@ -84,14 +107,12 @@ export class FunctionService {
     })
   }
 
-  // Request for records of grid :::
+  // Request for records of grid ::: Complet
   async dataGrid (table : string) {
 
     let request = await fetch(`http://localhost:8000/${table}`).then(response => response.json())
     let text : string = "";
-
     for (let i in request) { text += '<tr id='+ request[i].id +'>'
-
       for (let j in request[i]){
         if(j == 'codigo'){text += `<td class="${j}">` + String(request[i][j]).padStart(3, '0') + '</td>';}
         else if(j != 'id'){ text += `<td class="${j}">` + request[i][j] + '</td>'; }
@@ -100,18 +121,15 @@ export class FunctionService {
     };
 
     (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
-
       if((document.querySelector('.focus') as HTMLTableElement)){
         (document.querySelector('.focus') as HTMLTableElement).classList.remove('focus')
       }
-
       ((event.target as HTMLTableCellElement).parentNode as HTMLTableRowElement).classList.add('focus');
     })
-
     return text
   }
 
-  //Validate inputs requireds and return boolean :::
+  //Validate inputs requireds and return boolean ::: Complet
   validateInputs (required : string[]) {
 
     let requiredInputs = document.querySelectorAll(required.toString());
@@ -161,5 +179,21 @@ export class FunctionService {
       (document.querySelector('#codigo') as HTMLElement).setAttribute('style','border: 1px solid red;');
       this.mensagem = 'Código já está sendo utilizado em outro registro!';
     }
+  }
+
+  async updateRecord(required : string[], table : string, record : object){
+
+    if(this.validateInputs(required) == false){ return }
+
+    let request = await fetch(`http://localhost:8000/${table}`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(record)
+    }).then(response => {
+      if (response.ok) { return response.json()} else {console.log(response.status +' '+ response.statusText);
+        this.mensagem = 'Inconsistência Interna! Entrar em contato com Fator Sistemas'; return}
+    });
+    this.toggleScreen("");
+    this.dataGrid(table)
   }
 }
