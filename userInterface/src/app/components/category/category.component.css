@@ -1,0 +1,37 @@
+/* Define o tamanho da row na GRID*/
+:host ::ng-deep td {
+    height: 1.3rem;
+    padding-left: 0.5rem;
+    font: normal 1rem 'Calibri';
+    border: 0.1px solid lightgray;
+    cursor: inherit;
+}
+
+/*Cores alternadas na GRID*/
+:host ::ng-deep tbody tr:nth-child(odd) {
+    background-color: #EFF3FA;
+}
+
+/*Destaque para row selecionada na GRID*/
+:host ::ng-deep .focus {
+    background-color: #A8C6EE !important;
+    border: 1px solid cornflowerblue !important;  
+}
+
+/*Tamanho das colunas na GRID para INNER*/
+:host ::ng-deep .codigo { width: 5rem; }
+:host ::ng-deep .nome { width: 30.5rem; }
+:host ::ng-deep .medida { width: 8rem; }
+
+/*Tamanho das colunas na GRID thead */
+.codigo { width: 5rem; }
+.categoria { width: 33.5rem; }
+.ativo { width: 5rem; }
+
+/*Definição de Tamanhos nos INPUTS do DataGrid*/
+
+/*Linha 01*/
+
+/*Linha 02*/
+
+/*Linha 03*/

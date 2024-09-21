@@ -13,11 +13,11 @@ import { FormsModule } from '@angular/forms'
   styleUrl: './model.component.css'
 })
 export class ModelComponent {
-  component : string = 'Produtos';
+  component : string = ''; // Component name == table name in DB
   innerGrid : any;
   mode : string = "";
   mensagem : string = "";
-  dataRecord : Object;
+  dataRecord : Object; //Interface Import
 
   // Comum Functions :::
 
@@ -32,16 +32,7 @@ export class ModelComponent {
 
     // Declaring main object :::
     this.dataRecord = {
-      id:'',
-      codigo:'',
-      nome:'',
-      medida:'',
-      marca:'',
-      categoria:'',
-      localizacao:'',
-      centro_custo:'',
-      almoxarifado:'',
-      descricao:'',
+      // it's like Interface Import
     }
 
     // Declaring Commum functions :::
@@ -64,12 +55,12 @@ export class ModelComponent {
   async saveRecord () {
     if(this.mode == "Incluindo"){
       this.newRecord(
-        ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
+       [] , this.component, this.dataRecord //In [] is required camps
       );
     }
     else if(this.mode == "Alterando"){
       this.updateRecord(
-        ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
+        [], this.component, this.dataRecord
       );
     }
   }

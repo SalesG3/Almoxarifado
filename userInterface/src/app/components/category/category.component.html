@@ -2,13 +2,13 @@
     <header class="header">
 
         <div class="title-component">
-            <span>{{component}}</span>
+            <span>{{component}}:</span>
         </div>
 
         <nav class="toolbar">
-            <div class="save" hidden>
+            <div class="save" id="save-cancel" hidden>
                 <span>Modo:<br>{{mode}}</span>
-                <button #save value="Consultando" (click)="newRecord()">
+                <button #save id="save" (click)="saveRecord()">
                     <img src="../../../assets/save.svg" alt="img-save.svg">
                     Salvar</button>
                 <button #cancel value="" (click)="toggleScreen(cancel.value)">
@@ -20,11 +20,16 @@
                 <button #crud01 value="Incluindo" (click)="toggleScreen(crud01.value)">
                     <img src="../../assets/add.svg" alt="img-add.svg">
                     Incluir</button>
-                <button><img src="../../assets/edit.svg" alt="img-edit.svg">
+
+                <button #crud02 value="Alterando" (click)="toggleScreen(crud02.value)">
+                    <img src="../../assets/edit.svg" alt="img-edit.svg">
                     Alterar</button>
-                <button><img src="../../assets/delete.svg" alt="img-delete.svg">
+
+                <button #crud03 value="Deletar">
+                    <img src="../../assets/delete.svg" alt="img-delete.svg">
                     Excluir</button>
-                <button><img src="../../assets/consult.svg" alt="img-consult.svg">
+                    
+                <button #crud04 value="Consultando" (click)="toggleScreen(crud04.value)"><img src="../../assets/consult.svg" alt="img-consult.svg">
                     Consultar</button>
             </div>
             
@@ -38,7 +43,7 @@
             <div class="search">
                 <img src="../../assets/lupa.svg" alt="img-search.svg">
                 <input type="text" id="search">
-                <button>Procurar</button>
+                <button (click)="dataGrid()">Procurar</button>
                 <span>|</span>
                 <button>Filtrar</button>
             </div>
@@ -47,8 +52,8 @@
                 <thead>
                     <tr>
                         <th class="codigo">Código:</th>
-                        <th class="produto">Produto:</th>
-                        <th class="medida">Medida:</th>
+                        <th class="categoria">Categoria:</th>
+                        <th class="ativo" >Ativo:</th>
                     </tr>
                 </thead>
                 
@@ -60,7 +65,23 @@
     <main id="detail-record" hidden>
         <div class="detail-record">
             <div class="data-record">
+
+                <label for="ativo">Ativo</label>
+                <input type="checkbox" id="ativo" [(ngModel)]="testeng">
+
+                <br>
+
+                <label for="codigo">Código:</label>
+                <input type="number" id="codigo">
+
+                <label for="nome">Categoria:</label>
+                <input type="text" id="categoria">
+
+                <br>
                 
+                <label for="descricao">Descrição:</label><br>
+                <textarea id="descricao"></textarea>
+
                 <span class="mensagem">{{mensagem}}</span>
             </div>
         </div>

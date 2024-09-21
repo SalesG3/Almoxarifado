@@ -13,35 +13,37 @@ import { FormsModule } from '@angular/forms';
 })
 export class CategoryComponent {
 
-  component : string = 'categorias';
-  dataRecord : interfaceCategory;
-
+  component : string = 'Categorias';
   innerGrid : any;
   mode : string = "";
   mensagem : string = "";
+  dataRecord : interfaceCategory;
 
   // Comum Functions :::
 
   toggleScreen : Function;
   selectLookup : Function;
   validateInputs : Function;
-  
+  newRecord : Function;
+  updateRecord : Function;
+  consultRecord : Function;
 
-  constructor (private sanitizer : DomSanitizer,private functionService : FunctionService ) {
+  constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
     // Declaring main object :::
-    this.dataRecord = { codigo:'', nome:''}
+    this.dataRecord = {
+      id:'',
+      codigo:'',
+      nome:'',
+    }
 
     // Declaring Commum functions :::
-
+    this.newRecord = functionService.newRecord;
     this.toggleScreen = functionService.toggleScreen;
     this.selectLookup = functionService.selectLookup;
     this.validateInputs = functionService.validateInputs;
-
-    
-    if(typeof document != "undefined"){
-      this.dataGrid()
-    }
+    this.updateRecord = functionService.updateRecord;
+    this.consultRecord = functionService.consultRecord;
   }
 
   // Complement to dataGrid in functionService :::
@@ -52,9 +54,22 @@ export class CategoryComponent {
   }
 
   // Complement to newRecord in functionService :::
-  async newRecord ( ) {
-    this.functionService.newRecord(
-      ['#codigo','#nome','#medida','#centro_custo','#almoxarifado'], this.component, this.dataRecord
-    )
+  async saveRecord () {
+    if(this.mode == "Incluindo"){
+      this.newRecord(
+        [''], this.component, this.dataRecord
+      );
+    }
+    else if(this.mode == "Alterando"){
+      this.updateRecord(
+        [''], this.component, this.dataRecord
+      );
+    }
+  }
+
+  testeng : boolean = true;
+  //TESTE
+  teste(){
+    console.log((document.querySelector('#ativo') as HTMLInputElement).checked)
   }
 }
