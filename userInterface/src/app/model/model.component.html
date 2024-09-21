@@ -51,9 +51,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="codigo">Código:</th>
-                        <th class="produto">Produto:</th>
-                        <th class="medida">Medida:</th>
+                        <!-- Inserir as colunas da GRID de registros -->
                     </tr>
                 </thead>
                 
@@ -65,49 +63,7 @@
     <main id="detail-record" hidden>
         <div class="detail-record">
             <div class="data-record">
-                <label for="codigo">Código:</label>
-                <input value="{{dataRecord.codigo}}" id="codigo" [(ngModel)]="dataRecord.codigo">
-                
-                <label for="nome">Produto:</label>
-                <input maxlength="25" type="text" id="nome" [(ngModel)]="dataRecord.nome">
-                
-                <label for="medida">Medida:</label>
-                <input maxlength="15" type="text" id="medida" [(ngModel)]="dataRecord.medida">
-    
-                <br>
-                
-                <label for="marca">Marca:</label>
-                <input maxlength="25" type="text" id="marca" [(ngModel)]="dataRecord.marca">
-                
-                <label for="categoria">Categoria:</label>
-                <select class="lookup" #sel01 (focus)="selectLookup(sel01.id)" id="categoria" [(ngModel)]="dataRecord.categoria">
-                    <option hidden></option>
-                </select>
-    
-                <label for="localizacao">Armazem:</label>
-                <select id="localizacao" [(ngModel)]="dataRecord.localizacao">
-                    <option hidden></option>
-                    <option value="Praletelira">Prateleira</option>
-                    <option value="Refrigerador">Refrigerador</option>
-                    <option value="Palete">Palete</option>
-                </select>
-    
-                <label for="centro_custo">Centro C.:</label>
-                <select class="lookup" #sel02 id="centro_custo" (focus)="selectLookup(sel02.id)" [(ngModel)]="dataRecord.centro_custo">
-                    <option hidden></option>
-                </select>
-    
-                <label for="almoxarifado">Almoxarifado:</label>
-                <select class="lookup" #sel03 id="almoxarifado" (focus)="selectLookup(sel03.id)" [(ngModel)]="dataRecord.almoxarifado">
-                    <option hidden></option>
-                </select>
-                
-                <br>
-                
-                <label for="descricao">Descrição:</label>
-                <br>
-                <textarea maxlength="255" rows="3" id="descricao"  [(ngModel)]="dataRecord.descricao"></textarea>
-                <br><br>
+                <!-- Inserir os Inputs, Selects e Textareas do registro -->
                 <span class="mensagem">{{mensagem}}</span>
             </div>
         </div>

@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
+
+/* Importar*/
 import { DomSanitizer } from '@angular/platform-browser';
-import { FunctionService } from '../../services/function.service';
+import { FunctionService } from '../services/function.service';
 import { FormsModule } from '@angular/forms'
-import { InterfaceProduto } from '../../services/interfaces';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-model',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  templateUrl: './model.component.html',
+  styleUrl: './model.component.css'
 })
-export class ProductsComponent {
-
+export class ModelComponent {
   component : string = 'Produtos';
   innerGrid : any;
   mode : string = "";
   mensagem : string = "";
-  dataRecord : InterfaceProduto;
+  dataRecord : Object;
 
   // Comum Functions :::
 

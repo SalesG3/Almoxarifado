@@ -9,7 +9,6 @@ export class FunctionService {
   mode : string = "";
   mensagem : string = "";
   dataRecord : any;
-  consultRecord : any;
 
   constructor(private sanitizer : DomSanitizer) { }
 
@@ -181,6 +180,7 @@ export class FunctionService {
     }
   }
 
+  // Request for a uptade row
   async updateRecord(required : string[], table : string, record : object){
 
     if(this.validateInputs(required) == false){ return }
@@ -195,5 +195,29 @@ export class FunctionService {
     });
     this.toggleScreen("");
     this.dataGrid(table)
+  }
+
+  // Request for a consult especifiqued data row :::
+  async consultRecord ( ) {
+    if(!(document.querySelector('.focus') as HTMLElement)){ return false };
+    let rowID = (document.querySelector('.focus') as HTMLElement).id;
+
+    let request = await fetch(`http://localhost:8000/produtos/${rowID}`).then(res => res.json());
+
+    let select = (document.querySelectorAll('.lookup'));
+    for(let i = 0; i < select.length; i++){
+
+      if(request[0][0].hasOwnProperty(select[i].id) == true && request[0][0][select[i].id].id != null){
+        let key = request[0][0][select[i].id];
+        
+        (document.querySelector(`#${select[i].id}`) as HTMLSelectElement).innerHTML =
+        `<option value="${key.id}"> ${String(key.codigo).padStart(3, '0')} - ${key.nome}</option>`;
+
+        request[0][0][select[i].id] = key.id;
+      }
+      else { request[0][0][select[i].id] = ''; }
+    }
+    this.dataRecord = request[0][0];
+    return
   }
 }

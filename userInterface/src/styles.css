@@ -191,6 +191,7 @@
     }
 
     & input:disabled, select:disabled, textarea:disabled {
+        opacity: 1;
         background-color:lightyellow;
         color: black;
     }
@@ -199,6 +200,5 @@
         margin: 0rem .5rem 0rem .5rem;
         font: normal .85rem 'Calibri';
         color: red;
-        
     }
 }
