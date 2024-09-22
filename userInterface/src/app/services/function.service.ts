@@ -9,6 +9,8 @@ export class FunctionService {
   mode : string = "";
   mensagem : string = "";
   dataRecord : any;
+  component : any;
+  defaultValue : any;
 
   constructor(private sanitizer : DomSanitizer) { }
 
@@ -74,7 +76,7 @@ export class FunctionService {
         document.querySelector('#detail-record')?.setAttribute('hidden','');
         document.querySelector('#save-cancel')?.setAttribute('hidden','');
 
-        for(let i in this.dataRecord){this.dataRecord[i] = '';}
+        this.dataRecord = this.defaultValue;
 
         for(let i = 0; i < document.querySelectorAll('.toolbar button').length; i++){
           (document.querySelectorAll('.toolbar button')[i] as HTMLButtonElement).removeAttribute('disabled')
@@ -170,8 +172,8 @@ export class FunctionService {
     });
 
     if(request.sucess){
+      this.dataGrid(table);
       this.toggleScreen("");
-      this.dataGrid(table)
     }
 
     if(request.falied){
@@ -193,8 +195,8 @@ export class FunctionService {
       if (response.ok) { return response.json()} else {console.log(response.status +' '+ response.statusText);
         this.mensagem = 'Inconsistência Interna! Entrar em contato com Fator Sistemas'; return}
     });
+    this.dataGrid(table);
     this.toggleScreen("");
-    this.dataGrid(table)
   }
 
   // Request for a consult especifiqued data row :::
@@ -202,7 +204,9 @@ export class FunctionService {
     if(!(document.querySelector('.focus') as HTMLElement)){ return false };
     let rowID = (document.querySelector('.focus') as HTMLElement).id;
 
-    let request = await fetch(`http://localhost:8000/produtos/${rowID}`).then(res => res.json());
+    let request = await fetch(`http://localhost:8000/${this.component}/${rowID}`).then(res => res.json());
+
+    console.log(request)
 
     let select = (document.querySelectorAll('.lookup'));
     for(let i = 0; i < select.length; i++){
@@ -217,7 +221,9 @@ export class FunctionService {
       }
       else { request[0][0][select[i].id] = ''; }
     }
+    console.log(this.dataRecord)
     this.dataRecord = request[0][0];
+    console.log(this.dataRecord)
     return
   }
 }

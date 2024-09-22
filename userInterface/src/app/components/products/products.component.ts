@@ -18,6 +18,7 @@ export class ProductsComponent {
   mode : string = "";
   mensagem : string = "";
   dataRecord : InterfaceProduto;
+  defaultValue : InterfaceProduto;
 
   // Comum Functions :::
 
@@ -31,7 +32,7 @@ export class ProductsComponent {
   constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
     // Declaring main object :::
-    this.dataRecord = {
+    this.defaultValue = {
       id:'',
       codigo:'',
       nome:'',
@@ -43,6 +44,19 @@ export class ProductsComponent {
       almoxarifado:'',
       descricao:'',
     }
+
+    this.dataRecord = {
+      id:'',
+      codigo:'',
+      nome:'',
+      medida:'',
+      marca:'',
+      categoria:'',
+      localizacao:'',
+      centro_custo:'',
+      almoxarifado:'',
+      descricao:'',
+    };
 
     // Declaring Commum functions :::
     this.newRecord = functionService.newRecord;

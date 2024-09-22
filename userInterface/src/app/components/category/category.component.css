@@ -20,8 +20,8 @@
 
 /*Tamanho das colunas na GRID para INNER*/
 :host ::ng-deep .codigo { width: 5rem; }
-:host ::ng-deep .nome { width: 30.5rem; }
-:host ::ng-deep .medida { width: 8rem; }
+:host ::ng-deep .nome { width: 33.5rem; }
+:host ::ng-deep .ativo { width: 5rem; }
 
 /*Tamanho das colunas na GRID thead */
 .codigo { width: 5rem; }
@@ -29,8 +29,11 @@
 .ativo { width: 5rem; }
 
 /*Definição de Tamanhos nos INPUTS do DataGrid*/
+.data-record { padding-top: 1rem; }
 
 /*Linha 01*/
+#codigo { width: 3rem; }
+#nome { width: 18rem; }
 
 /*Linha 02*/
 

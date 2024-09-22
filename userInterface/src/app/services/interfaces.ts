@@ -12,7 +12,9 @@ export interface InterfaceProduto {
 }
 
 export interface interfaceCategory {
-    id:string
-    codigo:string
-    nome:string
+    id : string
+    codigo : string
+    nome : string
+    ativo : boolean
+    descricao : string
 }

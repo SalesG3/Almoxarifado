@@ -196,6 +196,11 @@
         color: black;
     }
 
+    & input[type="checkbox"] {
+        height: 22px;
+        width: 22px;
+    }
+
     & .mensagem {
         margin: 0rem .5rem 0rem .5rem;
         font: normal .85rem 'Calibri';

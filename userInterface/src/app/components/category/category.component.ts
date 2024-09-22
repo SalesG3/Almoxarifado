@@ -27,15 +27,21 @@ export class CategoryComponent {
   newRecord : Function;
   updateRecord : Function;
   consultRecord : Function;
+  defaultValue : interfaceCategory;
 
   constructor (private sanitizer : DomSanitizer,private functionService : FunctionService) {
 
+
     // Declaring main object :::
-    this.dataRecord = {
+    this.defaultValue = {
       id:'',
       codigo:'',
       nome:'',
+      ativo: true,
+      descricao: ''
     }
+    
+    this.dataRecord = this.defaultValue;
 
     // Declaring Commum functions :::
     this.newRecord = functionService.newRecord;
@@ -57,19 +63,13 @@ export class CategoryComponent {
   async saveRecord () {
     if(this.mode == "Incluindo"){
       this.newRecord(
-        [''], this.component, this.dataRecord
+        ['#codigo','#nome'], this.component, this.dataRecord
       );
     }
     else if(this.mode == "Alterando"){
       this.updateRecord(
-        [''], this.component, this.dataRecord
+        ['#codigo','#nome'], this.component, this.dataRecord
       );
     }
-  }
-
-  testeng : boolean = true;
-  //TESTE
-  teste(){
-    console.log((document.querySelector('#ativo') as HTMLInputElement).checked)
   }
 }

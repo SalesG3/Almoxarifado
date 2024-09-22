@@ -1,5 +1,6 @@
 require('./routes/lookups.js');
 require('./routes/products.js');
+require('./routes/category.js');
 
 const server = require('./server.js');
 const app = server.app;
