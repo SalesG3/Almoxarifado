@@ -121,12 +121,12 @@ export class FunctionService {
       } text += '</td>'
     };
 
-    (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
-      if((document.querySelector('.focus') as HTMLTableElement)){
-        (document.querySelector('.focus') as HTMLTableElement).classList.remove('focus')
-      }
-      ((event.target as HTMLTableCellElement).parentNode as HTMLTableRowElement).classList.add('focus');
-    })
+  (document.querySelector('#bodyTable') as HTMLTableElement).addEventListener('click', (event) => {
+    if((document.querySelector('.focus') as HTMLTableElement)){
+      (document.querySelector('.focus') as HTMLTableElement).classList.remove('focus')
+    }
+    ((event.target as HTMLTableCellElement).parentNode as HTMLTableRowElement).classList.add('focus');
+  })
     return text
   }
 
@@ -205,8 +205,6 @@ export class FunctionService {
     let rowID = (document.querySelector('.focus') as HTMLElement).id;
 
     let request = await fetch(`http://localhost:8000/${this.component}/${rowID}`).then(res => res.json());
-
-    console.log(request)
 
     let select = (document.querySelectorAll('.lookup'));
     for(let i = 0; i < select.length; i++){
