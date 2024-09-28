@@ -35,12 +35,12 @@ export class LoginComponent {
       })
     }).then(req => req.json()).then(data => {
 
-      if(data.falied != undefined){
+      if(data.erro != undefined){
         this.message = "Usuário e Senha incompatíveis!";
 
-      } else if (data.sucess != undefined){
+      } else if (data.sucesso != undefined){
         this.message = "";
-        this.session.user = data.sucess[0].usuario;
+        this.session.user = data.sucesso[0].usuario;
         this.router.navigate(['main'])
       }
     })

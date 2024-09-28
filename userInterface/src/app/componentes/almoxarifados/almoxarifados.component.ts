@@ -31,6 +31,8 @@ export class AlmoxarifadosComponent {
     }
 
     document.querySelector('#bodyTable')?.addEventListener('click', (event) => {
+      if(event.target == document.querySelector('#bodyTable')){ return }
+
       if (document.querySelector('.focus')){ document.querySelector('.focus')?.classList.remove('focus') }
       ((event.target as HTMLElement).parentNode as HTMLTableRowElement).classList.add('focus')
     })
@@ -192,6 +194,15 @@ export class AlmoxarifadosComponent {
       })
     }).then(response => { if(response.ok){return response.json()} else {console.log(request); return }})
 
+    if(request.duplicado){
+      document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
+      this.mensagem = "Este Código já em utilização!"
+    }
+
+    if(request.erro){
+      this.mensagem = "Inconsistência Interna. Entrar em contato com Suporte!"
+    }
+    
     if(request.sucesso){
       this.dadosGrid();
       this.alternarTelas("");

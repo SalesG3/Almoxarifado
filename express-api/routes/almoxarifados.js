@@ -28,10 +28,13 @@ app.put('/almoxarifados/:id', async (req, res) => {
     let [query] = await con.promise().execute(`CALL alterar_almoxarifado (${req.params.id}, ${codigo}, '${nome}')`);
 
     if(query[0] == undefined)
-        { res.send({ sucesso : query }); return }
-    
-    else
+        { res.send({ sucesso : query }); return}
+
+    else if (query[0][0] == undefined)
         { res.send({ erro : "ID Inexistente!"}); return }
+
+    else
+        { res.send({ duplicado : query[0][0] }); return }
 })
 
 // Consultar Registro : Almoxarifado

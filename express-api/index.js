@@ -3,25 +3,18 @@ require('./routes/produtos.js');
 require('./routes/categorias.js');
 require('./routes/almoxarifados.js');
 
-const server = require('./server.js');
-const app = server.app;
-const con = server.con;
+const { app, con } = require('./server.js');
 
-// User Login request
+// Requisição de Login Usuário
 app.post('/login', async function(req, res) {
     let {userIn, passwordIn} = req.body;
     
-    let[query] = await con.promise().query(`CALL user_validate('${userIn}', '${passwordIn}')`);
-    
-    if(query[0][0] == undefined){
-        res.send({
-            falied:'userIn & passwordIn dont match'
+    let[query] = await con.promise().query(`CALL login_usuario ( '${passwordIn}', '${userIn}')`);
 
-        })
-    } else {
-        res.send({
-            sucess: query[0]
-            
-        })
-    }
+    if(query[0] == undefined)
+        {res.send({ erro : "Login e Senha não compatíveis"}); return}
+
+    else
+        {res.send({ sucesso : query[0] }); return}
+
 })
