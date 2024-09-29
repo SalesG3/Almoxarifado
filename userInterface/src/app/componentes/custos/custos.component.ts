@@ -78,7 +78,7 @@ export class CustosComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
 
-        await this.codigoDisponivel();
+        await this.codigoDisponivel( modo );
         break;
 
       case "Alterando":
@@ -97,7 +97,7 @@ export class CustosComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
 
-        await this.codigoDisponivel();
+        await this.codigoDisponivel( modo );
         break;
 
       case "Consultando":
@@ -220,9 +220,9 @@ export class CustosComponent {
     }
   }
 
-  async codigoDisponivel ( ) {
-    if(this.modo == "Incluindo"){
-      let request = await fetch('http://localhost:8000/codigo/centro_custos').then(response => response.json());
+  async codigoDisponivel ( modo : string ) {
+    if(modo == "Incluindo"){
+      let request = await fetch('http://localhost:8000/codigo/custos').then(response => response.json());
       (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,"0");
     }
     
