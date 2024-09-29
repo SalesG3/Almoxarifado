@@ -2,6 +2,7 @@ require('./routes/lookups.js');
 require('./routes/produtos.js');
 require('./routes/categorias.js');
 require('./routes/almoxarifados.js');
+require('./routes/custos.js')
 
 const { app, con } = require('./server.js');
 

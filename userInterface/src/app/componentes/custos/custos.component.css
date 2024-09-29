@@ -1,0 +1,25 @@
+:host ::ng-deep td {
+    height: 1.3rem;
+    padding-left: 0.5rem;
+    font: normal 1rem 'Calibri';
+    border: 0.1px solid lightgray;
+    cursor: inherit;
+}
+
+:host ::ng-deep tbody tr:nth-child(odd) {
+    background-color: #EFF3FA;
+}
+
+:host ::ng-deep .focus {
+    background-color: #A8C6EE !important;
+}
+
+
+/* Colunas da Grid */
+:host ::ng-deep .codigo { width: 5rem; }
+:host ::ng-deep .nome { width: 38.5rem; }
+
+/*Linha 01*/
+#codigo { width: 3rem; }
+label[for='nome'] { width: 8rem ;}
+#nome { width: 20rem; }

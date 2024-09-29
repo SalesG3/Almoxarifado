@@ -89,3 +89,23 @@ main {
 .show {
     display: block !important;
 }
+
+/*  TESTE  */
+
+.listDown {
+    animation-name: descida;
+    animation-duration: .5s;
+    overflow: hidden;
+}
+
+
+@keyframes descida {
+
+    from {
+        max-height: 0px;
+    }
+
+    to {
+        max-height: 300px;
+    }
+}
