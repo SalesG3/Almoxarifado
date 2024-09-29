@@ -3,9 +3,9 @@ const { app, con} = require('../server');
 // Dados para GRID : Categorias
 app.get('/grid/categorias', async (req, res) => {
 
-    let [query] = await con.promise().execute(`SELECT id, codigo, nome, ativo FROM categorias`);
+    let [query] = await con.promise().execute(`CALL grid_categorias ( )`);
 
-    res.send(query)
+    res.send(query[0]);
 });
 
 // Novo registro : Categorias

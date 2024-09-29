@@ -1,7 +1,7 @@
 const { app, con} = require('../server');
 
 // Dados para GRID : Almoxarifados
-app.get('/almoxarifados', async (req, res) => {
+app.get('/grid/almoxarifados', async (req, res) => {
 
     let [query] = await con.promise().execute('CALL grid_almoxarifados( )')
 
@@ -41,6 +41,14 @@ app.put('/almoxarifados/:id', async (req, res) => {
 app.get('/almoxarifados/:id', async (req, res) => {
 
     let [query] = await con.promise().execute(`CALL consultar_almoxarifado (${req.params.id})`);
+
+    res.send(query[0]);
+})
+
+// Consultar Código Disponível : Almoxarifado
+app.get('/codigo/almoxarifados', async (req, res) => {
+
+    let [query] = await con.promise().execute(`CALL codigo_almoxarifado ( )`);
 
     res.send(query[0]);
 })

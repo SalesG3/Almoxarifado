@@ -168,7 +168,7 @@ table {
         height: 22px;
 
         font: normal .85rem 'Calibri';
-        border: 1px solid gray;
+        border: 1px solid lightgray;
         outline: none;
         box-sizing: border-box;
     }
@@ -180,7 +180,7 @@ table {
         width: 97.5%;
 
         font: normal .85rem 'Calibri';
-        border: 1px solid gray;
+        border: 1px solid lightgray;
         outline: none;
         box-sizing: border-box;
         resize: none;
@@ -199,6 +199,11 @@ table {
     & input[type="checkbox"] {
         height: 22px;
         width: 22px;
+    }
+
+    & input[id="codigo"] {
+        text-align: right;
+        padding-right: .25rem;
     }
 
     & .mensagem {

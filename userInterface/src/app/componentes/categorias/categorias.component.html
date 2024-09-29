@@ -2,7 +2,7 @@
     <header>
 
         <div class="titulo-componente">
-            <span>Almoxarifados:</span>
+            <span>Categorias:</span>
         </div>
 
         <nav>
@@ -52,7 +52,8 @@
                 <thead>
                     <tr>
                         <th class="codigo">Codigo:</th>
-                        <th class="nome">Almoxarifado:</th>
+                        <th class="nome">Categoria:</th>
+                        <th class="ativo">Ativo:</th>
                     </tr>
                 </thead>
                 
@@ -65,11 +66,17 @@
         <div class="detalhamento">
             <div class="dados-componente">
 
+                <label for="ativo">Ativo:</label>
+                <input type="checkbox" id="ativo">
+                <br>
                 <label for="codigo">Código:</label>
-                <input #codigo type="number" id="codigo">
+                <input #input1 type="number" id="codigo" (input)="maxlenght(input1)">
 
-                <label for="nome">Almoxarifado:</label>
+                <label for="nome">Categoria:</label>
                 <input type="text" id="nome">
+                <br>
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao"></textarea>
                 <br><br>
                 <span class="mensagem">{{mensagem}}</span>
             </div>

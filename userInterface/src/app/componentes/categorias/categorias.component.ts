@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-almoxarifados',
+  selector: 'app-categorias',
   standalone: true,
   imports: [],
-  templateUrl: './almoxarifados.component.html',
-  styleUrl: './almoxarifados.component.css'
+  templateUrl: './categorias.component.html',
+  styleUrl: './categorias.component.css'
 })
-export class AlmoxarifadosComponent {
+export class CategoriasComponent {
   innerGrid : any;
   modo : string = "";
   mensagem : string = "";
@@ -16,18 +16,20 @@ export class AlmoxarifadosComponent {
 
   constructor (private sanitizer:DomSanitizer ) { }
 
-
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-    let request = await fetch('http://localhost:8000/grid/almoxarifados').then(response => {
+    let request = await fetch('http://localhost:8000/grid/categorias').then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 
     let texto : string = "";
     for( let i = 0; i < request.length; i++ ) {
       texto += 
-      `<tr id="${request[i].id}"><td class="codigo">${String(request[i].codigo).padStart(2,'0')}</td>
-      <td class="nome">${request[i].nome}</td></tr>`
+      `<tr id="${request[i].id}">
+        <td class="codigo">${String(request[i].codigo).padStart(3,'0')}</td>
+        <td class="nome">${request[i].nome}</td>
+        <td class="ativo">${true == request[i].ativo ? 'Sim' : 'Não'}</td>
+      </tr>`
     }
 
     document.querySelector('#bodyTable')?.addEventListener('click', (event) => {
@@ -40,8 +42,6 @@ export class AlmoxarifadosComponent {
     return this.innerGrid = this.sanitizer.bypassSecurityTrustHtml(texto);
   }
 
-
-  // Consulta Registro Individual
   async consultarRegistro ( ){
     let id = document.querySelector('.focus')?.id;
     if(id == undefined || id == ""){ return false}
@@ -55,7 +55,6 @@ export class AlmoxarifadosComponent {
 
     return this.registroID = request[0].id;
   }
-
 
   // Alterna entre as Telas
   async alternarTelas (modo : string ) {
@@ -131,8 +130,6 @@ export class AlmoxarifadosComponent {
     return this.modo = modo;
   }
 
-
-  // Salva registro de acordo com Modo
   salvarRegistro ( ) {
 
     for (let i = 0; i < document.querySelectorAll('#detalhamento input').length; i++ ) {
@@ -164,7 +161,6 @@ export class AlmoxarifadosComponent {
     }
   }
 
-
   // Novo Registro
   async novoRegistro ( ) {
 
@@ -187,7 +183,6 @@ export class AlmoxarifadosComponent {
       this.mensagem = "Este Código já em utilização!"
     }
   }
-
 
   // Alterar Registro
   async alterarRegistro ( ) {
@@ -214,5 +209,16 @@ export class AlmoxarifadosComponent {
       this.dadosGrid();
       this.alternarTelas("");
     }
+  }
+
+  maxlenght (input : HTMLInputElement ) {
+
+    let text = "";
+
+      for(let i = 0; i < 4 ; i++ ){
+        text += input.value[i]
+      }
+
+    input.value = text;
   }
 }
