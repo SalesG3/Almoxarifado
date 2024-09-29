@@ -77,6 +77,8 @@ export class AlmoxarifadosComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('style');
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
+
+        await this.codigoDisponivel();
         break;
 
       case "Alterando":
@@ -214,5 +216,25 @@ export class AlmoxarifadosComponent {
       this.dadosGrid();
       this.alternarTelas("");
     }
+  }
+
+  async codigoDisponivel ( ) {
+    let request = await fetch('http://localhost:8000/codigo/almoxarifados').then(response => response.json());
+
+    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,"0");
+    
+    (document.querySelector('#codigo') as HTMLInputElement).addEventListener('input', (event) => {
+      let codigo = "";
+
+      for(let i = 0; i < 2; i++){
+        if((document.querySelector('#codigo') as HTMLInputElement).value[0] == "0"){
+          codigo = (document.querySelector('#codigo') as HTMLInputElement).value.replace('0','');
+        }
+        else if ((document.querySelector('#codigo') as HTMLInputElement).value[i] != undefined){
+          codigo += (document.querySelector('#codigo') as HTMLInputElement).value[i];
+        }
+      }
+      (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(2,'0')
+    })
   }
 }
