@@ -50,7 +50,7 @@ export class AlmoxarifadosComponent {
       if(response.ok){ return response.json()} else {console.log(response); return false}
     });
 
-    (document.querySelector('#codigo') as HTMLInputElement).value = request[0].codigo;
+    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,'0');
     (document.querySelector('#nome') as HTMLInputElement).value = request[0].nome;
 
     return this.registroID = request[0].id;
@@ -96,6 +96,8 @@ export class AlmoxarifadosComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('style');
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
+
+        await this.codigoDisponivel();
         break;
 
       case "Consultando":
@@ -219,11 +221,12 @@ export class AlmoxarifadosComponent {
   }
 
   async codigoDisponivel ( ) {
-    let request = await fetch('http://localhost:8000/codigo/almoxarifados').then(response => response.json());
-
-    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,"0");
+    if(this.modo == "Incluindo"){
+      let request = await fetch('http://localhost:8000/codigo/almoxarifados').then(response => response.json());
+      (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,"0");
+    }
     
-    (document.querySelector('#codigo') as HTMLInputElement).addEventListener('input', (event) => {
+    (document.querySelector('#codigo') as HTMLInputElement).addEventListener('input', () => {
       let codigo = "";
 
       for(let i = 0; i < 2; i++){

@@ -21,6 +21,5 @@
 :host ::ng-deep .ativo { width: 5.5rem; }
 
 /*Linha 01*/
-#codigo { width: 3rem; }
-label[for='nome'] { width: 8rem ;}
-#nome { width: 20rem; }
+#codigo { width: 3.25rem; }
+#nome { width: 26rem; }

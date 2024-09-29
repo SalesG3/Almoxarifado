@@ -16,6 +16,7 @@ export class CategoriasComponent {
 
   constructor (private sanitizer:DomSanitizer ) { }
 
+
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
     let request = await fetch('http://localhost:8000/grid/categorias').then(response => {
@@ -42,19 +43,24 @@ export class CategoriasComponent {
     return this.innerGrid = this.sanitizer.bypassSecurityTrustHtml(texto);
   }
 
+
+  // Atualizando :::
   async consultarRegistro ( ){
     let id = document.querySelector('.focus')?.id;
     if(id == undefined || id == ""){ return false}
 
-    let request = await fetch(`http://localhost:8000/almoxarifados/${id}`).then(response => {
+    let request = await fetch(`http://localhost:8000/categorias/${id}`).then(response => {
       if(response.ok){ return response.json()} else {console.log(response); return false}
     });
 
-    (document.querySelector('#codigo') as HTMLInputElement).value = request[0].codigo;
+    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(3,'0');
     (document.querySelector('#nome') as HTMLInputElement).value = request[0].nome;
+    (document.querySelector('#ativo') as HTMLInputElement).checked = request[0].ativo;
+    (document.querySelector('#descricao') as HTMLTextAreaElement).value = request[0].descricao;
 
     return this.registroID = request[0].id;
   }
+
 
   // Alterna entre as Telas
   async alternarTelas (modo : string ) {
@@ -71,11 +77,14 @@ export class CategoriasComponent {
         };
 
         document.querySelector('#salvar')?.removeAttribute('disabled');
+        (document.querySelector('#ativo') as HTMLInputElement).checked = true;
         for(let i = 0; i < document.querySelectorAll('.dados-componente input, select, textarea').length; i++){
           (document.querySelectorAll('.dados-componente input, select, textarea')[i] as HTMLInputElement).value = "";
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('style');
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
+
+        await this.codigoDisponivel();
         break;
 
       case "Alterando":
@@ -93,6 +102,8 @@ export class CategoriasComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('style');
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
+
+        await this.codigoDisponivel();
         break;
 
       case "Consultando":
@@ -130,10 +141,11 @@ export class CategoriasComponent {
     return this.modo = modo;
   }
 
+  // Salva de acordo com Modo
   salvarRegistro ( ) {
 
-    for (let i = 0; i < document.querySelectorAll('#detalhamento input').length; i++ ) {
-      let input = (document.querySelectorAll('#detalhamento input')[i] as HTMLInputElement);
+    for (let i = 0; i < document.querySelectorAll('#codigo, #nome').length; i++ ) {
+      let input = (document.querySelectorAll('#codigo, #nome')[i] as HTMLInputElement);
 
       if(input.value == ""){
         input.setAttribute('style','border: 1px solid red;')
@@ -161,64 +173,87 @@ export class CategoriasComponent {
     }
   }
 
+
   // Novo Registro
   async novoRegistro ( ) {
 
-    let request = await fetch('http://localhost:8000/almoxarifados', {
+    let request = await fetch('http://localhost:8000/categorias', {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        codigo:(document.querySelector('#codigo') as HTMLInputElement).value,
-        nome:(document.querySelector('#nome') as HTMLInputElement).value,
+        codigo: (document.querySelector('#codigo') as HTMLInputElement).value,
+        nome: (document.querySelector('#nome') as HTMLInputElement).value,
+        ativo: (document.querySelector('#ativo') as HTMLInputElement).checked,
+        descricao: (document.querySelector('#descricao') as HTMLTextAreaElement).value,
       })
     }).then( response => { if(response.ok){return response.json()} else {console.log(response); return } })
     
     if(request.sucesso){
-      this.dadosGrid();
+      await this.dadosGrid();
       this.alternarTelas("");
+      return
     }
 
     if(request.duplicado){
       document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
-      this.mensagem = "Este Código já em utilização!"
+      this.mensagem = "Este Código já em utilização!";
+      return
     }
   }
+
 
   // Alterar Registro
   async alterarRegistro ( ) {
 
-    let request = await fetch(`http://localhost:8000/almoxarifados/${this.registroID}`,{
+    let request = await fetch(`http://localhost:8000/categorias/${this.registroID}`,{
       method:"PUT",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
         codigo:(document.querySelector('#codigo') as HTMLInputElement).value,
-        nome: (document.querySelector('#nome') as HTMLInputElement).value
+        nome: (document.querySelector('#nome') as HTMLInputElement).value,
+        ativo: (document.querySelector('#ativo') as HTMLInputElement).checked,
+        descricao: (document.querySelector('#descricao') as HTMLTextAreaElement).value,
       })
     }).then(response => { if(response.ok){return response.json()} else {console.log(request); return }})
 
     if(request.duplicado){
       document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
       this.mensagem = "Este Código já em utilização!"
+      return
     }
 
     if(request.erro){
       this.mensagem = "Inconsistência Interna. Entrar em contato com Suporte!"
+      return
     }
     
     if(request.sucesso){
-      this.dadosGrid();
+      await this.dadosGrid();
       this.alternarTelas("");
+      return
     }
   }
 
-  maxlenght (input : HTMLInputElement ) {
 
-    let text = "";
+  // Código Disponível
+  async codigoDisponivel ( ) {
+    if(this.modo == "Incluindo"){
+      let request = await fetch('http://localhost:8000/codigo/categorias').then(response => response.json());
+      (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(3,"0");
+    }
+    
+    (document.querySelector('#codigo') as HTMLInputElement).addEventListener('input', () => {
+      let codigo = "";
 
-      for(let i = 0; i < 4 ; i++ ){
-        text += input.value[i]
+      for(let i = 0; i < 3; i++){
+        if((document.querySelector('#codigo') as HTMLInputElement).value[0] == "0"){
+          codigo = (document.querySelector('#codigo') as HTMLInputElement).value.replace('0','');
+        }
+        else if ((document.querySelector('#codigo') as HTMLInputElement).value[i] != undefined){
+          codigo += (document.querySelector('#codigo') as HTMLInputElement).value[i];
+        }
       }
-
-    input.value = text;
+      (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(3,'0')
+    })
   }
 }

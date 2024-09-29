@@ -48,3 +48,13 @@ BEGIN
 SELECT id, codigo, nome FROM almoxarifados WHERE id = idIn;
 END $$
 DELIMITER ;
+
+# CODIGO DISPONIVEL:
+DELIMITER $$
+CREATE PROCEDURE codigo_almoxarifado ( )
+BEGIN
+SELECT MAX(codigo)+1 AS codigo FROM almoxarifados;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE codigo_almoxarifado;

@@ -8,6 +8,7 @@ app.get('/grid/almoxarifados', async (req, res) => {
     res.send(query[0])
 })
 
+
 // Novo Registro : Almoxarifado
 app.post('/almoxarifados', async (req, res) => {
     let {codigo, nome} = req.body;
@@ -20,6 +21,7 @@ app.post('/almoxarifados', async (req, res) => {
     else
         {res.send({duplicado : query[0]}); return}
 })
+
 
 // Alterando Registro : Almoxarifado
 app.put('/almoxarifados/:id', async (req, res) => {
@@ -37,6 +39,7 @@ app.put('/almoxarifados/:id', async (req, res) => {
         { res.send({ duplicado : query[0][0] }); return }
 })
 
+
 // Consultar Registro : Almoxarifado
 app.get('/almoxarifados/:id', async (req, res) => {
 
@@ -45,7 +48,8 @@ app.get('/almoxarifados/:id', async (req, res) => {
     res.send(query[0]);
 })
 
-// Consultar Código Disponível : Almoxarifado
+
+// Código Disponível : Almoxarifado
 app.get('/codigo/almoxarifados', async (req, res) => {
 
     let [query] = await con.promise().execute(`CALL codigo_almoxarifado ( )`);
