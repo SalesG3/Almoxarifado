@@ -1,9 +1,9 @@
 const { app, con} = require('../server');
 
 // Dados para GRID : Almoxarifados
-app.get('/grid/almoxarifados', async (req, res) => {
+app.post('/grid/almoxarifados/', async (req, res) => {
 
-    let [query] = await con.promise().execute('CALL grid_almoxarifados( )')
+    let [query] = await con.promise().execute(`CALL grid_almoxarifados("%${req.body.busca}%")`)
 
     res.send(query[0])
 })

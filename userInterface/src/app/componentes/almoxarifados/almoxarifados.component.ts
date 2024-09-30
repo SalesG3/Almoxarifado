@@ -19,7 +19,12 @@ export class AlmoxarifadosComponent {
 
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-    let request = await fetch('http://localhost:8000/grid/almoxarifados').then(response => {
+
+    let request = await fetch(`http://localhost:8000/grid/almoxarifados`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body:JSON.stringify({busca : (document.querySelector('#pesquisa') as HTMLInputElement).value.replaceAll(' ','%%')})
+    }).then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 
@@ -239,5 +244,24 @@ export class AlmoxarifadosComponent {
       }
       (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(2,'0')
     })
+  }
+
+  // Desenvolvendo ::
+
+  async mover () {
+
+    // Criar a função para mover
+    function i (event : MouseEvent) {
+      let componente = (document.querySelector('.componente') as HTMLElement);
+
+      componente.style.left = `${componente.offsetLeft + (event.movementX)}px`;
+      componente.style.top = `${componente.offsetTop + (event.movementY)}px`;
+
+    }
+
+    // Escuta de Mover:
+    let titulo = (document.querySelector('.titulo.componente') as HTMLElement);
+
+    titulo.addEventListener('mousemove', i);
   }
 }
