@@ -1,7 +1,7 @@
 <section class="componente">
     <header>
 
-        <div (click)="mover()" class="titulo-componente">
+        <div class="titulo-componente" (pointerdown)="moverComponente()">
             <span>Almoxarifados:</span>
         </div>
 
@@ -45,10 +45,10 @@
                 <input type="text" id="pesquisa">
                 <button (click)="dadosGrid()">Procurar</button>
                 <span>|</span>
-                <button (click)="mover()">Filtrar</button>
+                <button>Filtrar</button>
             </div>
             
-            <table>
+            <table class="tabela">
                 <thead>
                     <tr>
                         <th class="codigo">Codigo:</th>

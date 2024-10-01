@@ -3,12 +3,13 @@ section {
     background-size: cover;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    height: 10%;
+    height: 4rem;
 
     background-color: rgba(255, 255, 255, 0.45);
     border-bottom: 1px solid rgba(255, 255, 255, 0.6);
@@ -39,7 +40,7 @@ header {
 }
 
 .navegation {
-    height: 4%;
+    height: 1.5rem;
     background: linear-gradient(to top, lightgray, white);
 
     & button {

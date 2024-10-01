@@ -5,6 +5,7 @@ import { AlmoxarifadosComponent } from './componentes/almoxarifados/almoxarifado
 import { CategoriasComponent } from './componentes/categorias/categorias.component';
 import { CustosComponent } from './componentes/custos/custos.component';
 import { FornecedoresComponent } from './componentes/fornecedores/fornecedores.component';
+import { LocaisComponent } from './componentes/locais/locais.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
         {path: "categorias", component: CategoriasComponent},
         {path: "almoxarifados", component: AlmoxarifadosComponent},
         {path: "custos", component: CustosComponent},
-        {path: "fornecedores", component: FornecedoresComponent}
+        {path: "fornecedores", component: FornecedoresComponent},
+        {path: "locais", component: LocaisComponent}
     ]}
 ];

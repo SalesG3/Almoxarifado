@@ -23,13 +23,3 @@
 #codigo { width: 3rem; }
 label[for='nome'] { width: 8rem ;}
 #nome { width: 20rem; }
-
-.componente {
-    position: absolute !important;
-    top: 125px; left: 300px;
-    margin: 0;
-}
-
-.teste:hover {
-    cursor:move;
-}

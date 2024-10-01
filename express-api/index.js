@@ -3,6 +3,7 @@ require('./routes/produtos.js');
 require('./routes/categorias.js');
 require('./routes/almoxarifados.js');
 require('./routes/custos.js')
+require('./routes/locais.js')
 require('./routes/fornecedores.js')
 
 const { app, con } = require('./server.js');
