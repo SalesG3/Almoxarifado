@@ -80,6 +80,7 @@
                 <label for="descricao">Descrição:</label><br>
                 <textarea id="descricao"></textarea>
                 <br>
+                
                 <section class="sub-componente">
                     <span class="titulo-subtabela">Reponsáveis:</span>
                     <div class="sub-grid">
@@ -91,12 +92,7 @@
                                 </tr>
                             </thead>
     
-                            <tbody>
-                                <tr>
-                                    <td class="sub-responsavel">Gabriel Sales Santana</td>
-                                    <td class="sub-inicio">24/12/2024</td>
-                                </tr>
-                            </tbody>
+                            <tbody [innerHTML]="innerSub"></tbody>
                         </table>
 
                     </div>
@@ -113,11 +109,11 @@
                     </div>
                     <footer class="sub-ferramentas">
                         <button (click)="subIncluir()">Incluir</button>
-                        <button>Alterar</button>
+                        <button (click)="pegarValores()">Alterar</button>
                         <button>Excluir</button>
                     </footer>
                     <footer class="sub-salvar-cancelar" hidden>
-                        <button>Gravar</button>
+                        <button (click)="subGravar()">Gravar</button>
                         <button>Cancelar</button>
                     </footer>
                 </section>

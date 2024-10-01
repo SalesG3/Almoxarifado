@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-locais',
@@ -9,11 +9,13 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrl: './locais.component.css'
 })
 export class LocaisComponent {
+  innerSub : any;
   innerGrid : any;
   subModo : string = "";
   modo : string = "";
   mensagem : string = "";
   registroID : number = 0;
+  HTML : string = "";
 
   constructor (private sanitizer:DomSanitizer ) { }
 
@@ -145,7 +147,7 @@ export class LocaisComponent {
   // Salva registro de acordo com Modo
   salvarRegistro ( ) {
 
-    for (let i = 0; i < document.querySelectorAll('#detalhamento input').length; i++ ) {
+    /*for (let i = 0; i < document.querySelectorAll('#detalhamento input').length; i++ ) {
       let input = (document.querySelectorAll('#detalhamento input')[i] as HTMLInputElement);
 
       if(input.value == ""){
@@ -159,7 +161,7 @@ export class LocaisComponent {
     
     for(let i = 0; i < document.querySelectorAll('input').length; i++){
       if((document.querySelectorAll('input')[i] as HTMLElement).getAttribute('style')){ return }
-    }
+    }*/
 
     this.mensagem = "";
 
@@ -178,12 +180,16 @@ export class LocaisComponent {
   // Novo Registro
   async novoRegistro ( ) {
 
-    let request = await fetch('http://localhost:8000/almoxarifados', {
+    let request = await fetch('http://localhost:8000/locais', {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        codigo:(document.querySelector('#codigo') as HTMLInputElement).value,
-        nome:(document.querySelector('#nome') as HTMLInputElement).value,
+        codigo: (document.querySelector('#codigo') as HTMLInputElement).value,
+        nome: (document.querySelector('#nome') as HTMLInputElement).value,
+        ativo: (document.querySelector('#ativo') as HTMLInputElement).checked,
+        endereco: (document.querySelector('#endereco') as HTMLInputElement).value,
+        descricao: (document.querySelector('#descricao') as HTMLInputElement).value,
+        subelementos : this.Teste
       })
     }).then( response => { if(response.ok){return response.json()} else {console.log(response); return } })
     
@@ -284,5 +290,40 @@ export class LocaisComponent {
     (document.querySelector('.sub-salvar-cancelar') as HTMLElement).removeAttribute('hidden');
     (document.querySelector('.sub-ferramentas') as HTMLElement).setAttribute('hidden','');
     this.subModo = "Incluindo"
+  }
+
+  Teste : Array<Object> = [];
+  subGravar ( ) {
+    let responsavel = (document.querySelector('#sub-nome') as HTMLInputElement);
+    let inicio = (document.querySelector('#sub-inicio') as HTMLInputElement);
+
+    this.HTML += `<tr class="novo"><td class="sub-responsavel">${responsavel.value}</td>
+      <td class="sub-inicio">${inicio.value}</td></tr>`;
+
+    this.Teste.push({
+      nome: responsavel.value,
+      inicio: inicio.value
+    })
+
+    this.innerSub = this.sanitizer.bypassSecurityTrustHtml(this.HTML);
+
+    for(let i = 0; i < (document.querySelectorAll('.sub-componente input').length); i++ ){
+      (document.querySelectorAll('.sub-componente input')[i] as HTMLInputElement).value = "";
+    }
+
+    (document.querySelector('.sub-grid') as HTMLElement).removeAttribute('hidden');
+    (document.querySelector('.sub-dados') as HTMLElement).setAttribute('hidden','');
+
+    (document.querySelector('.sub-ferramentas') as HTMLElement).removeAttribute('hidden');
+    (document.querySelector('.sub-salvar-cancelar') as HTMLElement).setAttribute('hidden','');
+    this.subModo = "";
+  }
+
+
+  pegarValores( ){
+
+    let dados = {
+      
+    }
   }
 }
