@@ -240,4 +240,31 @@ export class CustosComponent {
       (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(2,'0')
     })
   }
+
+  moverComponente () {
+
+    function adicionarEscuta (event : MouseEvent) {
+      let componente = (document.querySelector('.componente') as HTMLElement);
+
+      let leftMax = (document.body.clientWidth - componente.clientWidth);
+      if(componente.offsetLeft > leftMax && (event.movementX) > 0){ }
+      else if (componente.offsetLeft < 16 && (event.movementX) < 0){ }
+      else {componente.style.left = `${componente.offsetLeft + (event.movementX)}px`;}
+
+      let topMax = (document.body.clientHeight - componente.clientHeight -8);
+      if(componente.offsetTop > topMax && (event.movementY) > 0) { }
+      else if(componente.offsetTop < 16 && (event.movementY) < 0) { }
+      else {componente.style.top = `${componente.offsetTop + (event.movementY) -89}px`;}
+    }
+
+    function removerEscuta (event : MouseEvent) {
+      document.removeEventListener('mousemove', adicionarEscuta);
+      titulo.classList.remove('componente-move');
+    }
+
+    let titulo = (document.querySelector('.titulo-componente') as HTMLElement);
+    titulo.classList.add('componente-move');
+    document.addEventListener('mousemove', adicionarEscuta);
+    document.addEventListener('mouseup', removerEscuta);
+  }
 }
