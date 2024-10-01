@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-almoxarifados',
+  selector: 'app-fornecedores',
   standalone: true,
   imports: [],
-  templateUrl: './almoxarifados.component.html',
-  styleUrl: './almoxarifados.component.css'
+  templateUrl: './fornecedores.component.html',
+  styleUrl: './fornecedores.component.css'
 })
-export class AlmoxarifadosComponent {
+export class FornecedoresComponent {
   innerGrid : any;
   modo : string = "";
   mensagem : string = "";
@@ -16,23 +16,20 @@ export class AlmoxarifadosComponent {
 
   constructor (private sanitizer:DomSanitizer ) { }
 
-
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-
-    let request = await fetch(`http://localhost:8000/grid/almoxarifados`, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body:JSON.stringify({busca : (document.querySelector('#pesquisa') as HTMLInputElement).value.replaceAll(' ','%%')})
-    }).then(response => {
+    let request = await fetch('http://localhost:8000/grid/fornecedores').then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 
     let texto : string = "";
     for( let i = 0; i < request.length; i++ ) {
       texto += 
-      `<tr id="${request[i].id}"><td class="codigo">${String(request[i].codigo).padStart(2,'0')}</td>
-      <td class="nome">${request[i].nome}</td></tr>`
+      `<tr id="${request[i].id}">
+        <td class="codigo">${String(request[i].codigo).padStart(4,'0')}</td>
+        <td class="nome">${request[i].nome}</td>
+        <td class="cnpj">${request[i].cnpj}</td>
+      </tr>`
     }
 
     document.querySelector('#bodyTable')?.addEventListener('click', (event) => {
@@ -51,7 +48,7 @@ export class AlmoxarifadosComponent {
     let id = document.querySelector('.focus')?.id;
     if(id == undefined || id == ""){ return false}
 
-    let request = await fetch(`http://localhost:8000/almoxarifados/${id}`).then(response => {
+    let request = await fetch(`http://localhost:8000/fornecedores/${id}`).then(response => {
       if(response.ok){ return response.json()} else {console.log(response); return false}
     });
 
@@ -177,7 +174,7 @@ export class AlmoxarifadosComponent {
   // Novo Registro
   async novoRegistro ( ) {
 
-    let request = await fetch('http://localhost:8000/almoxarifados', {
+    let request = await fetch('http://localhost:8000/fornecedores', {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
@@ -201,7 +198,7 @@ export class AlmoxarifadosComponent {
   // Alterar Registro
   async alterarRegistro ( ) {
 
-    let request = await fetch(`http://localhost:8000/almoxarifados/${this.registroID}`,{
+    let request = await fetch(`http://localhost:8000/fornecedores/${this.registroID}`,{
       method:"PUT",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
@@ -227,14 +224,14 @@ export class AlmoxarifadosComponent {
 
   async codigoDisponivel ( modo :string ) {
     if(modo == "Incluindo"){
-      let request = await fetch('http://localhost:8000/codigo/almoxarifados').then(response => response.json());
-      (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,"0");
+      let request = await fetch('http://localhost:8000/codigo/fornecedores').then(response => response.json());
+      (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(4,"0");
     }
     
     (document.querySelector('#codigo') as HTMLInputElement).addEventListener('input', () => {
       let codigo = "";
 
-      for(let i = 0; i < 2; i++){
+      for(let i = 0; i < 4; i++){
         if((document.querySelector('#codigo') as HTMLInputElement).value[0] == "0"){
           codigo = (document.querySelector('#codigo') as HTMLInputElement).value.replace('0','');
         }
@@ -242,27 +239,7 @@ export class AlmoxarifadosComponent {
           codigo += (document.querySelector('#codigo') as HTMLInputElement).value[i];
         }
       }
-      (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(2,'0')
+      (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(4,'0')
     })
-  }
-
-  // Desenvolvendo ::
-
-  async mover () {
-
-    // Criar a função para mover
-    function i (event : MouseEvent) {
-      let componente = (document.querySelector('.componente') as HTMLElement);
-
-      componente.style.left = `${componente.offsetLeft + (event.movementX)}px`;
-      componente.style.top = `${componente.offsetTop + (event.movementY)}px`;
-
-    }
-
-    // Escuta de Mover:
-    let titulo = (document.querySelector('.titulo.componente') as HTMLElement);
-
-    titulo.addEventListener('mousemove', i);
-    
   }
 }

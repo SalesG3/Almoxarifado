@@ -1,0 +1,46 @@
+:host ::ng-deep td {
+    height: 1.3rem;
+    padding-left: 0.5rem;
+    font: normal 1rem 'Calibri';
+    border: 0.1px solid lightgray;
+    cursor: inherit;
+}
+
+:host ::ng-deep tbody tr:nth-child(odd) {
+    background-color: #EFF3FA;
+}
+
+:host ::ng-deep .focus {
+    background-color: #A8C6EE !important;
+}
+
+
+/* Colunas da Grid */
+:host ::ng-deep .codigo { width: 5rem; }
+:host ::ng-deep .nome { width: 30.5rem; }
+:host ::ng-deep .cnpj { width: 8rem; }
+
+
+/*Linha 01*/
+#codigo { width: 3rem; }
+#nome { width: 26.5rem; }
+
+/*Linha 02*/
+#cnpj { width: 7rem; }
+#responsavel { width: 10rem; }
+#contato { width: 6.25rem; }
+
+/*Linha 03*/
+#agencia { width: 3rem; }
+#conta { width: 6rem; }
+#pix { width: 14.25rem; }
+
+/*Linha 04*/
+#uf { width: 3.35rem; }
+#cidade { width: 14.25rem; }
+#bairro { width: 6rem; }
+
+/*Linha 05*/
+#endereco { width: 23.4rem; }
+#complemento { width: 6.25rem; }
+#descricao {height: 3.25rem;}

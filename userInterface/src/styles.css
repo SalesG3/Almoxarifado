@@ -141,7 +141,7 @@ table {
         width: 5rem; height: 22px;
         margin: .5rem 0rem 0rem .5rem;
 
-        font: normal 1rem 'Calibri';
+        font: normal .9rem 'Calibri';
         padding-left: .5rem;
         background-color: #B7C7D0;
     }
@@ -153,7 +153,7 @@ table {
         height: 18px;
 
         border: 1px solid lightgray;
-        font: normal .85rem 'Calibri';
+        font: normal .8rem 'Calibri';
         outline: none;
     }
 
@@ -167,7 +167,7 @@ table {
         margin: .5rem 0rem 0rem 0rem;
         height: 22px;
 
-        font: normal .85rem 'Calibri';
+        font: normal .8rem 'Calibri';
         border: 1px solid lightgray;
         outline: none;
         box-sizing: border-box;
@@ -179,7 +179,7 @@ table {
         margin: 0rem .5rem 0rem .5rem;
         width: 97.5%;
 
-        font: normal .85rem 'Calibri';
+        font: normal .8rem 'Calibri';
         border: 1px solid lightgray;
         outline: none;
         box-sizing: border-box;
