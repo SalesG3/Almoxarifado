@@ -2,7 +2,7 @@
     <header>
 
         <div class="titulo-componente" (pointerdown)="moverComponente()">
-            <span>Categorias:</span>
+            <span>Locais:</span>
         </div>
 
         <nav>
@@ -52,8 +52,7 @@
                 <thead>
                     <tr>
                         <th class="codigo">Codigo:</th>
-                        <th class="nome">Categoria:</th>
-                        <th class="ativo">Ativo:</th>
+                        <th class="nome">Local:</th>
                     </tr>
                 </thead>
                 
@@ -66,17 +65,62 @@
         <div class="detalhamento">
             <div class="dados-componente">
 
-                <label for="ativo">Ativo:</label>
-                <input type="checkbox" id="ativo">
-                <br>
                 <label for="codigo">Código:</label>
                 <input type="number" id="codigo">
 
-                <label for="nome">Categoria:</label>
+                <label for="nome">Local:</label>
                 <input type="text" id="nome">
+                
+                <label for="ativo">Ativo:</label>
+                <input type="checkbox" id="ativo">
                 <br>
-                <label for="descricao">Descrição:</label>
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco">
+                <br>
+                <label for="descricao">Descrição:</label><br>
                 <textarea id="descricao"></textarea>
+                <br>
+                <section class="sub-componente">
+                    <span class="titulo-subtabela">Reponsáveis:</span>
+                    <div class="sub-grid">
+                        <table class="sub-tabela">
+                            <thead>
+                                <tr>
+                                    <th class="sub-responsavel">Responsável:</th>
+                                    <th class="sub-inicio">Início:</th>
+                                </tr>
+                            </thead>
+    
+                            <tbody>
+                                <tr>
+                                    <td class="sub-responsavel">Gabriel Sales Santana</td>
+                                    <td class="sub-inicio">24/12/2024</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="sub-dados" hidden>
+                        <span class="sub-modo"> Modo: {{subModo}}</span>
+                        <label for="sub-nome">Responsável:</label>
+                        <input type="text" id="sub-nome">
+
+                        <label for="sub-inicio">Início:</label>
+                        <input type="date" id="sub-inicio">
+                        <br>
+
+                    </div>
+                    <footer class="sub-ferramentas">
+                        <button (click)="subIncluir()">Incluir</button>
+                        <button>Alterar</button>
+                        <button>Excluir</button>
+                    </footer>
+                    <footer class="sub-salvar-cancelar" hidden>
+                        <button>Gravar</button>
+                        <button>Cancelar</button>
+                    </footer>
+                </section>
                 <br><br>
                 <span class="mensagem">{{mensagem}}</span>
             </div>

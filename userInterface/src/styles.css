@@ -97,7 +97,7 @@ header {
     }
 }
 
-table {
+.tabela {
     width: 100%;
     border-collapse: collapse;
     background-color: white;

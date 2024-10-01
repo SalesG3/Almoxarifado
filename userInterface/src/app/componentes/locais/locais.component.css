@@ -1,0 +1,114 @@
+:host ::ng-deep td {
+    height: 1rem;
+    padding-left: 0.5rem;
+    font: normal 0.85rem 'Calibri';
+    border: 0.1px solid lightgray;
+    cursor: inherit;
+}
+
+:host ::ng-deep tbody tr:nth-child(odd) {
+    background-color: #EFF3FA;
+}
+
+:host ::ng-deep .focus {
+    background-color: #A8C6EE !important;
+}
+
+
+/* Colunas da Grid */
+:host ::ng-deep .codigo { width: 5rem; }
+:host ::ng-deep .nome { width: 38.5rem; }
+
+/*Linha 01*/
+#codigo { width: 3rem; }
+#nome { width: 19rem; }
+
+/*Linha 02*/
+#endereco { width: 36rem; }
+
+/* Colunas da sub-tabela*/
+:host ::ng-deep .sub-responsavel { width: 34rem; }
+:host ::ng-deep .sub-inicio { width: 6rem; }
+
+
+.sub-componente {
+    position: relative;
+    border: 1px solid gray;
+    height: 10rem;
+    margin: .5rem;
+
+    & .titulo-subtabela{
+        display: block;
+        border-radius: 5px;
+        margin: .25rem;
+        background-color:#AEBEC7;
+        width: 97.5%;
+        text-align: center;
+        font: bold 0.85rem 'Calibri';
+    }
+
+    & button {
+        width: 4rem;
+        height: 1.5rem;
+        margin: .5rem 0 .5rem .5rem;
+        font: normal 0.85rem "Calibri";
+        background: linear-gradient( to top, lightgray, white);
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+
+    & button:hover {
+        filter: brightness(0.9);
+        cursor: pointer;
+    }
+
+    & footer {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.sub-grid {
+    
+    & .sub-tabela {
+        margin: .5rem 0 0 .5rem;
+        width: 97.5%;
+        border-collapse: collapse;
+        border: 1px solid gray;
+        background-color: white;
+
+        & thead, tbody {
+            display: block;
+            overflow-y: scroll;
+        }
+
+        & tbody {
+            height: 4rem;
+        }
+
+        & td, th {
+            border: .5px solid lightgray;
+            text-align: left;
+            padding-left: 0.5rem;
+        }
+
+        & th {
+            font: normal 0.9rem 'Calibri';
+            height: 1rem;
+            background: linear-gradient(to top, lightgray, white);
+        }   
+    }
+}
+
+.sub-dados {
+    
+    & .sub-modo {
+        display: block;
+        width: 100%;
+        font: bold 0.85rem 'Calibri';
+        padding-left: .5rem;
+    }
+
+}
+
+#sub-nome { width: 21.5rem; }
