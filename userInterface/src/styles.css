@@ -118,8 +118,8 @@ header {
     }
 
     & th {
-        font: normal 0.9rem 'Calibri';
-        height: 1.5rem;
+        font: normal 0.8rem 'Calibri';
+        height: 1.2rem;
         background: linear-gradient(to top, lightgray, white);
     }   
 }

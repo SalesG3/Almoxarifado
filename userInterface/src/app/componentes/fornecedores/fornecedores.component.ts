@@ -52,8 +52,12 @@ export class FornecedoresComponent {
       if(response.ok){ return response.json()} else {console.log(response); return false}
     });
 
-    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(2,'0');
-    (document.querySelector('#nome') as HTMLInputElement).value = request[0].nome;
+    let inputs = document.querySelectorAll('#detalhamento input, select, textarea');
+    for(let i = 0; i < inputs.length; i++){
+      (inputs[i] as HTMLInputElement).value = request[0][inputs[i].id];
+    }
+
+    (document.querySelector('#codigo') as HTMLInputElement).value = String(request[0].codigo).padStart(4,'0');
 
     return this.registroID = request[0].id;
   }
@@ -130,6 +134,7 @@ export class FornecedoresComponent {
           document.querySelectorAll('.dados-componente input, select, textarea')[i].removeAttribute('disabled');
         }
 
+        this.mensagem = "";
         this.registroID = 0;
         break;
     }
@@ -141,8 +146,8 @@ export class FornecedoresComponent {
   // Salva registro de acordo com Modo
   salvarRegistro ( ) {
 
-    for (let i = 0; i < document.querySelectorAll('#detalhamento input').length; i++ ) {
-      let input = (document.querySelectorAll('#detalhamento input')[i] as HTMLInputElement);
+    for (let i = 0; i < document.querySelectorAll('#codigo, #nome, #cnpj, #contato').length; i++ ) {
+      let input = (document.querySelectorAll('#codigo, #nome, #cnpj, #contato')[i] as HTMLInputElement);
 
       if(input.value == ""){
         input.setAttribute('style','border: 1px solid red;')
@@ -178,8 +183,20 @@ export class FornecedoresComponent {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        codigo:(document.querySelector('#codigo') as HTMLInputElement).value,
-        nome:(document.querySelector('#nome') as HTMLInputElement).value,
+        codigo: (document.querySelector('#codigo') as HTMLInputElement).value,
+        nome: (document.querySelector('#nome') as HTMLInputElement).value,
+        cnpj: (document.querySelector('#cnpj') as HTMLInputElement).value,
+        responsavel: (document.querySelector('#responsavel') as HTMLInputElement).value,
+        contato: (document.querySelector('#contato') as HTMLInputElement).value,
+        agencia: (document.querySelector('#agencia') as HTMLInputElement).value,
+        conta: (document.querySelector('#conta') as HTMLInputElement).value,
+        pix: (document.querySelector('#pix') as HTMLInputElement).value,
+        uf: (document.querySelector('#uf') as HTMLInputElement).value,
+        bairro: (document.querySelector('#bairro') as HTMLInputElement).value,
+        cidade: (document.querySelector('#cidade') as HTMLInputElement).value,
+        endereco: (document.querySelector('#endereco') as HTMLInputElement).value,
+        complemento: (document.querySelector('#complemento') as HTMLInputElement).value,
+        descricao: (document.querySelector('#descricao') as HTMLInputElement).value
       })
     }).then( response => { if(response.ok){return response.json()} else {console.log(response); return } })
     
@@ -188,9 +205,14 @@ export class FornecedoresComponent {
       this.alternarTelas("");
     }
 
-    if(request.duplicado){
+    if(request.duplicado == "codigo"){
       document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
       this.mensagem = "Este Código já em utilização!"
+    }
+
+    if(request.duplicado == "cnpj"){
+      document.querySelector('#cnpj')?.setAttribute('style','border: 1px solid red');
+      this.mensagem = "Este CNPJ já está sendo utilizado em outro registro!"
     }
   }
 
@@ -202,8 +224,20 @@ export class FornecedoresComponent {
       method:"PUT",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        codigo:(document.querySelector('#codigo') as HTMLInputElement).value,
-        nome: (document.querySelector('#nome') as HTMLInputElement).value
+        codigo: (document.querySelector('#codigo') as HTMLInputElement).value,
+        nome: (document.querySelector('#nome') as HTMLInputElement).value,
+        cnpj: (document.querySelector('#cnpj') as HTMLInputElement).value,
+        responsavel: (document.querySelector('#responsavel') as HTMLInputElement).value,
+        contato: (document.querySelector('#contato') as HTMLInputElement).value,
+        agencia: (document.querySelector('#agencia') as HTMLInputElement).value,
+        conta: (document.querySelector('#conta') as HTMLInputElement).value,
+        pix: (document.querySelector('#pix') as HTMLInputElement).value,
+        uf: (document.querySelector('#uf') as HTMLInputElement).value,
+        bairro: (document.querySelector('#bairro') as HTMLInputElement).value,
+        cidade: (document.querySelector('#cidade') as HTMLInputElement).value,
+        endereco: (document.querySelector('#endereco') as HTMLInputElement).value,
+        complemento: (document.querySelector('#complemento') as HTMLInputElement).value,
+        descricao: (document.querySelector('#descricao') as HTMLInputElement).value
       })
     }).then(response => { if(response.ok){return response.json()} else {console.log(request); return }})
 
