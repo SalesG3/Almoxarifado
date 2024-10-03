@@ -2,9 +2,9 @@ const { app, con } = require('../server');
 
 
 // Dados para GRID : Fornecedores
-app.get('/grid/fornecedores', async (req, res) => {
+app.post('/grid/fornecedores', async (req, res) => {
 
-    let [query] = await con.promise().execute(`CALL grid_fornecedores`);
+    let [query] = await con.promise().execute(`CALL grid_fornecedores ( '%${req.body.busca}%' )`);
 
     res.send(query[0]);
 });

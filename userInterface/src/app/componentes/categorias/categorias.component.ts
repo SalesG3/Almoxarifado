@@ -19,7 +19,13 @@ export class CategoriasComponent {
 
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-    let request = await fetch('http://localhost:8000/grid/categorias').then(response => {
+    let request = await fetch('http://localhost:8000/grid/categorias',{
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body:JSON.stringify({
+        busca: (document.querySelector('#pesquisa') as HTMLInputElement).value
+      })
+    }).then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 

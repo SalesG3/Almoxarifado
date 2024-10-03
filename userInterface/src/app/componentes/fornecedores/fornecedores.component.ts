@@ -18,7 +18,11 @@ export class FornecedoresComponent {
 
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-    let request = await fetch('http://localhost:8000/grid/fornecedores').then(response => {
+    let request = await fetch('http://localhost:8000/grid/fornecedores',{
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body:JSON.stringify({busca : (document.querySelector('#pesquisa') as HTMLInputElement).value.replaceAll(' ','%%')})
+    }).then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 
@@ -214,6 +218,10 @@ export class FornecedoresComponent {
       document.querySelector('#cnpj')?.setAttribute('style','border: 1px solid red');
       this.mensagem = "Este CNPJ já está sendo utilizado em outro registro!"
     }
+
+    if(request.erro){
+      this.mensagem = "Inconsistência Interna. Entrar em contato com Suporte!"
+    }
   }
 
 
@@ -240,19 +248,24 @@ export class FornecedoresComponent {
         descricao: (document.querySelector('#descricao') as HTMLInputElement).value
       })
     }).then(response => { if(response.ok){return response.json()} else {console.log(request); return }})
-
-    if(request.duplicado){
-      document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
-      this.mensagem = "Este Código já em utilização!"
-    }
-
-    if(request.erro){
-      this.mensagem = "Inconsistência Interna. Entrar em contato com Suporte!"
-    }
     
     if(request.sucesso){
       this.dadosGrid();
       this.alternarTelas("");
+    }
+
+    if(request.duplicado == "codigo"){
+      document.querySelector('#codigo')?.setAttribute('style','border: 1px solid red');
+      this.mensagem = "Este Código já em utilização!"
+    }
+
+    if(request.duplicado == "cnpj"){
+      document.querySelector('#cnpj')?.setAttribute('style','border: 1px solid red');
+      this.mensagem = "Este CNPJ já está sendo utilizado em outro registro!"
+    }
+
+    if(request.erro){
+      this.mensagem = "Inconsistência Interna. Entrar em contato com Suporte!"
     }
   }
 
@@ -275,5 +288,32 @@ export class FornecedoresComponent {
       }
       (document.querySelector('#codigo') as HTMLInputElement).value = codigo.padStart(4,'0')
     })
+  }
+
+  moverComponente () {
+
+    function adicionarEscuta (event : MouseEvent) {
+      let componente = (document.querySelector('.componente') as HTMLElement);
+
+      let leftMax = (document.body.clientWidth - componente.clientWidth);
+      if(componente.offsetLeft > leftMax && (event.movementX) > 0){ }
+      else if (componente.offsetLeft < 16 && (event.movementX) < 0){ }
+      else {componente.style.left = `${componente.offsetLeft + (event.movementX)}px`;}
+
+      let topMax = (document.body.clientHeight - componente.clientHeight -8);
+      if(componente.offsetTop > topMax && (event.movementY) > 0) { }
+      else if(componente.offsetTop < 16 && (event.movementY) < 0) { }
+      else {componente.style.top = `${componente.offsetTop + (event.movementY) -89}px`;}
+    }
+
+    function removerEscuta (event : MouseEvent) {
+      document.removeEventListener('mousemove', adicionarEscuta);
+      titulo.classList.remove('componente-move');
+    }
+
+    let titulo = (document.querySelector('.titulo-componente') as HTMLElement);
+    titulo.classList.add('componente-move');
+    document.addEventListener('mousemove', adicionarEscuta);
+    document.addEventListener('mouseup', removerEscuta);
   }
 }

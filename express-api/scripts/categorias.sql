@@ -5,9 +5,11 @@ USE DBmain;
 DELIMITER $$
 CREATE PROCEDURE grid_categorias ( )
 BEGIN
-SELECT id, codigo, nome, ativo FROM categorias;
+	SELECT almoxarifados.* FROM ( SELECT id, CONCAT ( codigo, ' ', nome) AS conc FROM almoxarifados ) conc
+	LEFT JOIN almoxarifados ON conc.id = almoxarifados.id WHERE conc LIKE buscaIn ;
 END $$
 DELIMITER ;
+
 
 # NOVO REGISTRO:
 DELIMITER $$

@@ -24,11 +24,14 @@ USE DBmain;
 
 # DADOS PARA GRID:
 DELIMITER $$
-CREATE PROCEDURE grid_fornecedores ( )
-BEGIN
-	SELECT id, codigo, nome, cnpj FROM fornecedores;
+CREATE PROCEDURE grid_fornecedores ( buscaIn VARCHAR(100) )
+BEGIN    
+	SELECT fornecedores.id, fornecedores.codigo, fornecedores.nome, fornecedores.cnpj FROM (
+		SELECT id, CONCAT ( codigo, nome, cnpj) AS busca FROM fornecedores ) busca
+	LEFT JOIN fornecedores ON busca.id = fornecedores.id WHERE busca.busca LIKE buscaIn ORDER BY fornecedores.codigo;
 END $$
 DELIMITER ;
+
 
 # NOVO REGISTRO:
 DELIMITER $$
@@ -66,17 +69,17 @@ BEGIN
             WHERE id = idIn;
 		
         ELSE
-			SELECT 
+			SELECT
 				CASE WHEN codigo = codigoIn THEN "codigo" END AS codigo,
 				CASE WHEN cnpj = cnpjIn THEN "cnpj" END AS cnpj
-            FROM fornecedores WHERE ( codigo = codigoIn OR cnpj = cnpjIn);
+            FROM fornecedores WHERE ( codigo = codigoIn OR cnpj = cnpjIn) AND id <> idIn;
 		END IF;
 	ELSE
 		SELECT id FROM fornecedores WHERE id = idIn;
     END IF;
 END $$
 DELIMITER ;
-
+DROP PROCEDURE alterar_fornecedor;
 
 # CONSULTAR REGISTRO:
 DELIMITER $$

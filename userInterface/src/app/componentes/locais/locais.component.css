@@ -1,7 +1,7 @@
 :host ::ng-deep td {
-    height: 1rem;
+    height: 1.2rem;
     padding-left: 0.5rem;
-    font: normal 0.85rem 'Calibri';
+    font: normal .9rem 'Calibri';
     border: 0.1px solid lightgray;
     cursor: inherit;
 }
