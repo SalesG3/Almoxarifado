@@ -1,12 +1,13 @@
 ### PROCEDURES PARA TABELA DE CATEGORIAS:
 USE DBmain;
 
+
 # DADOS DA GRID:
 DELIMITER $$
-CREATE PROCEDURE grid_categorias ( )
+CREATE PROCEDURE grid_categorias ( buscaIn VARCHAR(100) )
 BEGIN
-	SELECT almoxarifados.* FROM ( SELECT id, CONCAT ( codigo, ' ', nome) AS conc FROM almoxarifados ) conc
-	LEFT JOIN almoxarifados ON conc.id = almoxarifados.id WHERE conc LIKE buscaIn ;
+	SELECT categorias.* FROM ( SELECT id, CONCAT ( codigo, nome, ativo) AS conc FROM categorias ) conc
+	LEFT JOIN categorias ON conc.id = categorias.id WHERE conc LIKE buscaIn ;
 END $$
 DELIMITER ;
 
@@ -23,6 +24,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 # ALTERAR REGISTRO:
 DELIMITER $$
 CREATE PROCEDURE alterar_categoria ( idIn INT, codigoIn INT, nomeIn VARCHAR(50), ativoIn BOOLEAN, descricaoIn TEXT )
@@ -36,19 +38,21 @@ BEGIN
 		SELECT id FROM categorias WHERE id = idIn; END IF;
 END $$
 DELIMITER ;
-    
+  
+
 # CONSULTAR CATEGORIA:
 DELIMITER $$
 CREATE PROCEDURE consultar_categoria ( idIn INT )
 BEGIN
-SELECT * FROM categorias WHERE id = idIn;
+	SELECT * FROM categorias WHERE id = idIn;
 END $$
 DELIMITER ;
+
 
 # CÓDIGO DISPONÍVEL:
 DELIMITER $$
 CREATE PROCEDURE codigo_categoria ( )
 BEGIN
-SELECT MAX(codigo) +1 AS codigo FROM categorias;
+	SELECT IFNULL(MAX(codigo), 0) +1 AS codigo FROM categorias;
 END $$
 DELIMITER ;

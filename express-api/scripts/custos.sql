@@ -2,11 +2,12 @@
 ALTER TABLE centro_custos RENAME custos;
 USE DBmain;
 
-# DADOS PARA GRID:
+# DADOS DA GRID:
 DELIMITER $$
-CREATE PROCEDURE grid_custos ( )
+CREATE PROCEDURE grid_custos ( buscaIn VARCHAR(100) )
 BEGIN
-SELECT id, codigo, nome FROM custos;
+	SELECT custos.* FROM ( SELECT id, CONCAT ( codigo, nome ) AS conc FROM custos ) conc
+	LEFT JOIN custos ON conc.id = custos.id WHERE conc LIKE buscaIn ;
 END $$
 DELIMITER ;
 
@@ -48,6 +49,6 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE codigo_custos ( )
 BEGIN
-SELECT MAX(codigo) +1 AS codigo FROM custos;
+	SELECT IFNULL(MAX(codigo), 0) +1 AS codigo FROM fornecedores;
 END $$
 DELIMITER ;

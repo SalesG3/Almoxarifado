@@ -23,7 +23,7 @@ export class CategoriasComponent {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body:JSON.stringify({
-        busca: (document.querySelector('#pesquisa') as HTMLInputElement).value
+        busca: (document.querySelector('#pesquisa') as HTMLInputElement).value.replaceAll(' ','%%')
       })
     }).then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}

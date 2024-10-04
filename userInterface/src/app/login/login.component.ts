@@ -33,17 +33,17 @@ export class LoginComponent {
         userIn : (document.querySelector('#userIn') as HTMLInputElement).value,
         passwordIn : Md5.hashStr((document.querySelector('#passwordIn') as HTMLInputElement).value),
       })
-    }).then(req => req.json()).then(data => {
+    }).then(res => {
+      if(res.ok)
+        {this.message = ""; return res.json()}
+      else 
+        { this.message = "Inconsistência Interna. Favor entrar em contato com Suporte!"; return }
+      });
 
-      if(data.erro != undefined){
-        this.message = "Usuário e Senha incompatíveis!";
+    if(req.erro)
+      { this.message = "Login e Senha não compatíveis"; return };
 
-      } else if (data.sucesso != undefined){
-        this.message = "";
-        this.session.user = data.sucesso[0].usuario;
-        this.router.navigate(['main'])
-      }
-    })
+    if(req.sucesso)
+      { this.message = ""; this.router.navigate(['/main']); this.session.user = req.sucesso[0].nome; return };
   }
 }
-

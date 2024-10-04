@@ -16,13 +16,13 @@ export class MainComponent {
 
   constructor (private session : SessionService, private router: Router) {
 
+    //if(session.user == ""){ router.navigate(['/'])} Validação para não permitir login sem usuário logado. Desativado para desenvolvimento
 
     this.userSession = {
       client: session.client,
       user: session.user,
       version: session.version,
     }
-
   }
 
   logOut(){

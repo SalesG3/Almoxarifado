@@ -19,7 +19,13 @@ export class CustosComponent {
 
   // Carrega os Registros e Insere na GRID
   async dadosGrid ( ) {
-    let request = await fetch('http://localhost:8000/grid/custos').then(response => {
+    let request = await fetch('http://localhost:8000/grid/custos',{
+      method: "POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        busca: (document.querySelector('#pesquisa') as HTMLInputElement).value.replaceAll(' ','%%')
+      })
+    }).then(response => {
       if(response.ok){ return response.json()} else { console.log(response); return}
     })
 
