@@ -316,4 +316,80 @@ export class FornecedoresComponent {
     document.addEventListener('mousemove', adicionarEscuta);
     document.addEventListener('mouseup', removerEscuta);
   }
+
+  mascaraCNPJ ( ) {
+
+    let input = (document.querySelector('#cnpj') as HTMLInputElement);
+    function CNPJ () {
+      let texto : string = "";
+
+      input.value = input.value.replaceAll('.','').replace('/','').replace('-','');
+
+      for( let i = 0; i < input.value.length; i++ ){
+        if(i == 2)
+          { texto += "."  + input.value[i]}
+
+        else if(i == 5)
+          { texto += "." + input.value[i]}
+
+        else if(i == 8)
+          { texto += "/" + input.value[i]}
+
+        else if(i == 12)
+          { texto += "-" + input.value[i]}
+
+        else 
+          { texto += input.value[i]}
+      } return texto; }
+
+    input.oninput = function(){
+      if((event as InputEvent).data == null){ return }
+      if(String((event as InputEvent).data) in [1,2,3,4,5,6,7,8,9,0]){
+        input.value = CNPJ()
+      } else {input.value = ""}
+    };
+
+    input.onchange = function(){
+      input.value = input.value.replace('.','').replace('.','').replace('/','').replace('-',''); 
+      for(let i = 0; i < input.value.length; i++){
+        if(!(input.value[i] in [1,2,3,4,5,6,7,8,9,0])){
+          input.value = ""
+        }
+      } input.value = CNPJ();
+    }
+  }
+
+  mascaraContato ( ) {
+    let input = (document.querySelector('#contato') as HTMLInputElement);
+    function contato (){
+      let texto : string = "";
+      input.value = input.value.replace('(','').replace(')','');
+
+      for(let i = 0; i < input.value.length; i++ ){
+        if ( i == 0 )
+          { texto += "(" + input.value[i] }
+
+        else if ( i == 2 )
+          { texto += ")" + input.value[i] }
+
+        else 
+          { texto += input.value[i] }
+      } return texto }
+
+      input.oninput = function(){
+        if((event as InputEvent).data == null){ return }
+        if(String((event as InputEvent).data) in [1,2,3,4,5,6,7,8,9,0]){
+          input.value = contato()
+        } else {input.value = ""}
+      };
+  
+      input.onchange = function(){
+        input.value = input.value.replace('(','').replace(')','');
+        for(let i = 0; i < input.value.length; i++){
+          if(!(input.value[i] in [1,2,3,4,5,6,7,8,9,0])){
+            input.value = ""
+          }
+        } input.value = contato();
+      }
+  }
 }

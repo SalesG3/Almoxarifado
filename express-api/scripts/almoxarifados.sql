@@ -7,7 +7,7 @@ DELIMITER $$
 CREATE PROCEDURE grid_almoxarifados ( buscaIn VARCHAR(100) )
 BEGIN
 	SELECT almoxarifados.* FROM ( SELECT id, CONCAT ( codigo, ' ', nome) AS conc FROM almoxarifados ) conc
-	LEFT JOIN almoxarifados ON conc.id = almoxarifados.id WHERE conc LIKE buscaIn ;
+	LEFT JOIN almoxarifados ON conc.id = almoxarifados.id WHERE conc LIKE buscaIn ORDER BY codigo;
 END $$
 DELIMITER ;
 

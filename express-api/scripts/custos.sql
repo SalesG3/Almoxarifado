@@ -7,9 +7,10 @@ DELIMITER $$
 CREATE PROCEDURE grid_custos ( buscaIn VARCHAR(100) )
 BEGIN
 	SELECT custos.* FROM ( SELECT id, CONCAT ( codigo, nome ) AS conc FROM custos ) conc
-	LEFT JOIN custos ON conc.id = custos.id WHERE conc LIKE buscaIn ;
+	LEFT JOIN custos ON conc.id = custos.id WHERE conc LIKE buscaIn ORDER BY codigo ;
 END $$
 DELIMITER ;
+DROP PROCEDURE grid_custos;
 
 # NOVO REGISTRO:
 DELIMITER $$

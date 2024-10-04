@@ -7,7 +7,7 @@ DELIMITER $$
 CREATE PROCEDURE grid_categorias ( buscaIn VARCHAR(100) )
 BEGIN
 	SELECT categorias.* FROM ( SELECT id, CONCAT ( codigo, nome, ativo) AS conc FROM categorias ) conc
-	LEFT JOIN categorias ON conc.id = categorias.id WHERE conc LIKE buscaIn ;
+	LEFT JOIN categorias ON conc.id = categorias.id WHERE conc LIKE buscaIn ORDER BY codigo;
 END $$
 DELIMITER ;
 

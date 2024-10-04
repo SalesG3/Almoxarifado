@@ -73,13 +73,13 @@
                 <input type="text" id="nome">
                 <br>
                 <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj">
+                <input type="text" id="cnpj" (focus)="mascaraCNPJ( )" maxlength="18">
 
                 <label for="responsavel">Responsável:</label>
                 <input type="text" id="responsavel">
 
-                <label for="contato">Contato:</label>
-                <input type="text" id="contato">
+                <label for="contato" >Contato:</label>
+                <input type="text" id="contato" (focus)="mascaraContato( )" maxlength="13">
                 <br>
                 <label for="agencia">Agência:</label>
                 <input type="number" id="agencia">
